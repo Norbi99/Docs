@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRS Tartalmi útmutató</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --primary-color: #005B9A; 
+            --primary-light: #e6f0f7;
+            --example-bg: #fffbe6;
+            --example-border: #facc15;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .primary-color {
+            color: var(--primary-color);
+        }
+        .primary-border {
+            border-left: 4px solid var(--primary-color); 
+        }
+        .section-header {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        .nav-link.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .nav-link:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: calc(100vh - 80px);
+            padding-top: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-container {
+                grid-template-columns: 280px 1fr;
+                gap: 2rem;
+                padding-top: 2rem;
+            }
+            .content-pane {
+                max-height: calc(100vh - 120px);
+                overflow-y: auto;
+                padding-right: 1rem;
+            }
+            .menu-pane {
+                position: sticky;
+                top: 80px;
+                height: fit-content;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Felső (Fix) Navigációs Sáv -->
+    <header class="sticky top-0 z-20 bg-white shadow-md p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="Projekt_dokumentaciok.html" class="flex items-center space-x-1 text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 p-2 rounded-lg bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="hidden sm:inline">Vissza</span>
+                </a>
+                
+                <h1 class="text-xl sm:text-2xl font-bold primary-color">BRS Tartalmi útmutató</h1> 
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <p class="text-sm text-gray-600 hidden sm:block">Mercarius sablontár</p>
+                <div class="w-8 h-8 bg-gray-500 text-white flex items-center justify-center text-xs font-bold rounded-md">BS</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 content-container">
+        
+        <!-- Bal Oldali Navigáció (Menü) -->
+        <aside class="menu-pane hidden lg:block">
+            <div id="navigation-menu" class="p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+                <h2 class="text-lg font-semibold mb-3 text-gray-700">Tartalomjegyzék</h2>
+                <nav class="space-y-1 text-sm">
+                    <a href="#" data-section="executive_summary" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">1. Vezetői Összefoglaló</a>
+                    <a href="#" data-section="project_description" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">2. Projektleírás</a>
+                    <a href="#" data-section="project_scope" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">3. Projekt Hatóköre</a>
+                    <a href="#" data-section="business_drivers" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">4. Üzleti Motivációk</a>
+                    <a href="#" data-section="processes" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">5. Folyamatok és Adatok</a>
+                    <a href="#" data-section="functional_req" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">6. Funkcionális Követelmények</a>
+                    <a href="#" data-section="non_functional_req" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">7. Nem-funkcionális Követelmények</a>
+                    <a href="#" data-section="priority" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">8. Priorizálás & KPI-k</a>
+                    <a href="#" data-section="assumptions" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">9. Feltételezések és Korlátok</a>
+                    <a href="#" data-section="glossary" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">10. Dokumentáció & Fogalomtár</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Jobb Oldali Fő Tartalom -->
+        <section id="content-pane" class="lg:col-span-1 space-y-8 content-pane bg-white rounded-xl shadow-lg p-6 lg:p-8">
+            
+            <h2 class="text-3xl font-extrabold primary-color mb-6">A Követelménymeghatározás (BRS) Célja</h2>
+            <div id="general_info" class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-8">
+                <p class="text-lg leading-relaxed text-gray-700">
+                    A követelménymeghatározás célja, hogy egy átfogó, részletes dokumentációt hozzon létre a tervezett rendszer elvárt működéséről, kizárólag az üzleti (funkcionális és nem-funkcionális) igényekre fókuszálva. Ez a dokumentum alapul szolgál a későbbi tervezési és fejlesztési folyamatokhoz.
+                </p>
+            </div>
+
+            <!-- 1. Vezetői Összefoglaló (Executive Summary) -->
+            <div id="executive_summary" data-section-content class="section-content space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">1. Vezetői Összefoglaló (Executive Summary)</h3>
+                <p class="text-gray-600">A dokumentum legfontosabb elemeinek tömör áttekintése a felsővezetés számára.</p>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: <strong>MerCore</strong> Flottamenedzsment Megújulás – Vezetői Összefoglaló</p>
+                    
+                    <strong class="font-bold block mt-3">1. Projekt Áttekintése:</strong>
+                    <p class="text-gray-700 leading-relaxed ml-2">A projekt célja a MyCarius digitális platform teljes körű megújítása, a fókusz áthelyezésével a flottamenedzseri munka hatékony támogatására és a döntéshozatal optimalizálására. A megvalósítás felhasználóbarát designnal és mobilbarát eléréssel történik. Az új rendszer projektneve: <strong>MerCore</strong>.</p>
+                    
+                    <strong class="font-bold block mt-3">2. Indoklás (Business Case):</strong>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700 text-sm">
+                        <li><strong>Stratégiai Megújulás:</strong> A MOL-lal történő összeolvadás után a digitális megoldás újragondolásának és piaci pozicionálásának kihasználása.</li>
+                        <li><strong>Hatékonysági Növekedés:</strong> A belső rendszerek (Flotta Fotóka, Mosaic) széttagoltsága okozta nehézkes információáramlás felszámolása.</li>
+                        <li><strong>Flottamenedzseri Elégedettség:</strong> A jelenlegi MyCarius felület korlátozott a flottamenedzserek szempontjából, így az új, intuitív design és funkciók a felhasználói élmény jelentős javítását célozzák.</li>
+                        <li><strong>Adatintegritás:</strong> Az adatok manuális rögzítéséből és a telematikai adatok hiányos integrációjából eredő hibalehetőségek minimalizálása.</li>
+                    </ul>
+
+                    <strong class="font-bold block mt-3">3. Javasolt Megoldás (High-Level):</strong>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700 text-sm">
+                        <li><strong>Központi Adatelérés:</strong> Az adatok központi gyűjtése és rendelkezésre állása, beleértve a járművön kívüli és belüli telemetriai adatokat is.</li>
+                        <li><strong>API Integráció:</strong> A különálló belső megoldásokból (pl. Flotta Fotóka) származó főbb adatok API-n keresztül történő integrációja az elkészülő <strong>MerCore</strong> rendszerbe.</li>
+                        <li><strong>Flotta Fókuszú MyCarius:</strong> A felület újrafejlesztése a flottamenedzseri munkafolyamatok teljes körű támogatásával, mobilbarát elérés biztosításával.</li>
+                        <li><strong>Telematikai Adatok Integrációja:</strong> Megoldás bevezetése (OBD II, meglévő telematikai eszközök) a telematikai adatok hatékony integrálására, ami kulcsfontosságú a flottaszolgáltatások fejlesztéséhez.</li>
+                    </ul>
+                </div>
+
+                <div class="mt-12 p-6 bg-green-50 rounded-xl border border-green-300 shadow-md">
+                    <h3 class="text-2xl font-semibold text-green-800 mb-4">Formális Jóváhagyás</h3>
+                    <p class="text-green-700 leading-relaxed">
+                        A követelményspecifikáció végén a dokumentumot az érintettekkel való egyeztetés után formálisan jóvá kell hagyni. Ez a lépés minimalizálja a későbbi hibák és módosítások kockázatát.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. Projektleírás (Project Description) -->
+            <div id="project_description" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">2. Projektleírás és Jelenlegi Környezet</h3>
+                <p class="text-gray-600">A fejlesztés háttere, üzleti célkitűzései és a fejlesztés általános célja.</p>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Rendszer Célja:</strong> A <strong>MerCore</strong> egyetlen, egységes digitális felületet biztosít a flottamenedzserek számára, amely lehetővé teszi a teljes járműflotta és a kapcsolódó szerződések, üzemeltetési események (szerviz, kár, gumiabroncs) átlátható, valós idejű kezelését.</li>
+                        <li><strong>Üzleti Célok:</strong> A flottamenedzserek adminisztrációs terheinek 20%-os csökkentése a manuális rögzítés automatizálásával; a flottaszolgáltatásokra vonatkozó ügyfél-elégedettség (NPS/CSAT) pontszám 15%-os növelése.</li>
+                        <li><strong>Kihívások és Fájdalmas Pontok:</strong> A jelenlegi B2B felület mobilkorlátozott, nem támogatja az azonnali döntéshozatalt, és a telematikai adatok nem használhatók fel a proaktív karbantartási tervek készítéséhez.</li>
+                        <li><strong>Érintett Szereplők:</strong> Flottamenedzserek (Fő felhasználók), IT Üzemeltetés, Pénzügyi Osztály (<strong>CODA (Unit4)</strong> integráció miatt), Kereskedelmi Vezetőség (KPI-k miatt).</li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong>Rendszer Célja:</strong> Mit fog megoldani az új rendszer.</li>
+                    <li><strong>Üzleti Célok:</strong> Konkrét, mérhető üzleti célkitűzések, amelyek alátámasztják a fejlesztést.</li>
+                    <li><strong>Jelenlegi Működési Struktúra:</strong> A szervezet jelenlegi folyamatai, az érintett területek és rendszerek.</li>
+                    <li><strong>Kihívások és Fájdalmas Pontok:</strong> A meglévő rendszer gyengeségeinek bemutatása.</li>
+                    <li><strong>Érintett Szereplők (Stakeholderek):</strong> Főbb érintettek listája, a projektben betöltött szerepükkel.</li>
+                </ul>
+            </div>
+
+            <!-- 3. Projekt Hatóköre (Project Scope) -->
+            <div id="project_scope" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">3. Projekt Hatóköre (Scope)</h3>
+                <p class="text-gray-600">Pontos határmeghatározás a félreértések és a Scope Creep elkerülése érdekében.</p>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>IN-SCOPE (Amit magába foglal):</strong> Flottaspecifikus riportolási felület, valós idejű szerződés- és járműadatok megjelenítése, szerviz-/kárbejelentő folyamat digitalizálása, integráció a meglévő flottakezelő backenddel (<strong>MerCore</strong>), mobiloptimalizált felhasználói felület (React/Angular).</li>
+                        <li><strong>OUT-OF-SCOPE (Amit nem foglal magába):</strong> A jelenlegi B2C (sofőröknek szóló) funkcionalitás teljes áttervezése (csak a B2B fókuszál; a B2C marad a jelenlegi felületen), új főkönyvi modul bevezetése (<strong>CODA (Unit4)</strong> funkciói nem érintettek), a Telematikai Adatplatform teljes kiépítése (csak az adatfogadás és -megjelenítés a feladatrész).</li>
+                        <li><strong>Megvalósítási Fázisok:</strong> 
+                            <ol class="list-[decimal] list-inside ml-4 mt-1 space-y-1">
+                                <li>1. Fázis: Flottaadatok és Riportok Alapja.</li>
+                                <li>2. Fázis: Eseménykezelés (Szerviz/Kár) és Integrációk.</li>
+                                <li>3. Fázis: Mobil B2B felület és Telematikai adatmegjelenítés.</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong>IN-SCOPE (Amit magába foglal):</strong> Részletes lista a funkciókról, modulokról, felhasználói csoportokról és rendszerelemekről.</li>
+                    <li><strong>OUT-OF-SCOPE (Amit nem foglal magába):</strong> A fejlesztésből szándékosan kihagyott funkciók, határok és kapcsolódó rendszerek tisztázása.</li>
+                    <li><strong>Megvalósítási Fázisok:</strong> A BRS alapján tervezett fázisokra bontás.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Üzleti Motivációk (Business Drivers) és Jogi Elemzés -->
+            <div id="business_drivers" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">4. Üzleti Motivációk</h3>
+                <p class="text-gray-600">Az üzleti igények, a stratégiai célok és a kötelező jellegű követelmények alapja.</p>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner">
+                    <p class="font-bold text-yellow-800 mb-2">STRATÉGIAI PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Stratégiai Újrapozícionálás:</strong> A MOL-lal történt összeolvadás nyújtotta stratégiai lehetőség kihasználása a digitális megoldások teljes újragondolására és piaci pozicionálására.</li>
+                        <li><strong>Hatékonysági Kényszer (Rendszerszigetek):</strong> A belső rendszereket jellemző széttagoltság és szigetszerű működés felszámolása, ami jelenleg nehezíti az információáramlást és a belső csapatok közötti együttműködést.</li>
+                        <li><strong>Telematikai Adatintegráció (Jövőbeli Képesség):</strong> A projektnek elő kell készítenie a terepet a telematikai adatok (B2C és B2B funkciók) integrációjához, ami alapvető feltétele az adatokra alapozott új szolgáltatások bevezetésének.</li>
+                        <li><strong>Digitális Ügyfélélmény (Differentiation):</strong> A használói (B2C) és flottamenedzseri (B2B) funkciók átlátható szétválasztása és az új <strong>MerCore</strong> rendszer jövőbeli szerepének megalapozása.</li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm mt-4">
+                    <li><strong>Üzleti Indokok:</strong> A fejlesztés üzleti haszna.</li>
+                    <li><strong>Jogi Elemzés és Megfelelőség:</strong> 
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Vonatkozó jogszabályok:</strong> A fejlesztést alapjaiban meghatározó jogi keretek.</li>
+                            <li><strong>Következtetések:</strong> Az összefüggések, amik a jogszabályokból kiolvashatók (kvázi üzleti követelmények).</li>
+                            <li><strong>GDPR Megfelelőség:</strong> Adatkezelési szempontok, adattípusok besorolása, kezelési elvek.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 5. Jelenlegi és Tervezett Folyamatok, Adatok -->
+            <div id="processes" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">5. Jelenlegi és Tervezett Folyamatok, Adatok</h3>
+                <p class="text-gray-600">A rendszereket érintő főbb események, az adatáramlás és a szereplők bemutatása a Car Fleet Management területen.</p>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA (Folyamatok és Adatáramlás):</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Gépjármű Életciklus:</strong> A rendszernek támogatnia kell a jármű teljes életútját a beszerzési rendeléstől (PO) a kiszállításon, üzemeltetésen, kárrendezésen át az értékesítési (lezárási) folyamatig, biztosítva a folyamatos státuszkövetést.</li>
+                        <li><strong>Törzsadat Kezelés (Master Data):</strong> A Partner Törzs, Autó Törzs és Szerződés törzs adatai alkotják a rendszer alapját. A folyamatoknak garantálniuk kell, hogy ezek az adatok egységesen és hitelesen szerepeljenek minden kapcsolódó tranzakcióban.</li>
+                        <li><strong>GDPR a folyamatban:</strong> A felhasználói adatok (pl. vezető neve, telefonszáma, GPS-adatok) rögzítése és továbbítása csak a jogi elemzésben meghatározott célok szerint és a használó engedélye (hozzájárulása) mellett történhet.</li>
+                        <li><strong>Rendszerkapcsolat (Pénzügyi Folyamat):</strong> A számlázási analitikák elkészítése után a vevőszámlák pénzügyi teljesítésére vonatkozó adatok automatikusan visszakerülnek a Car Fleet rendszerbe a <strong>CODA (Unit4)</strong> integráción keresztül.</li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm mt-4">
+                    <li><strong>Folyamatok Jelenlegi Állapota (As-Is) és Tervezett Állapota (To-Be):</strong> A főbb események (triggerek), rendszerfeladatok, és a folyamatokban lévő adatátadások leírása.</li>
+                    <li><strong>Rendszerkapcsolatok (Interfészek):</strong> Külső rendszerek listája, az adatcsere iránya és módja.</li>
+                    <li><strong>Az eljárásban érintett Szereplők:</strong> Szervenkénti, hatóságonkénti feladat- és hatáskörök.</li>
+                </ul>
+            </div>
+            
+            <!-- 6. Funkcionális Követelmények -->
+            <div id="functional_req" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">6. Funkcionális Követelmények</h3>
+                <p class="text-gray-600">Az elvárt rendszerfunkciók és felhasználói igények részletes bontása (mit kell tennie a rendszernek).</p>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Kárrendezés (Rögzítés):</strong> A rendszernek biztosítania kell a kárrendezési folyamat során a kár (pl. esemény típusa, dátum, helyszín, dokumentumok) részletes rögzítését.</li>
+                        <li><strong>Számlázás (Analitika):</strong> A rendszernek automatikusan el kell készítenie a számlázási analitikákat a különböző számlázási sablonok (pl. bérleti díjak, továbbterhelések) alapján a pénzügyi előkészítéshez.</li>
+                        <li><strong>Gépjármű Státusz:</strong> A rendszernek lehetővé kell tennie az autó leadásának jelzését, megkülönböztetve az értékesítést és a készletre vételt.</li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong>Rendszerfunkciók Bontása (Modulonként):</strong> Logikai egységek (modulok) szerinti csoportosítás.</li>
+                    <li><strong>Konfigurálhatósági (Customizing) követelmény:  </strong> A rendszernek biztosítania kell a Kulcsfelhasználók és a kijelölt Folyamat Gazdák számára a szállítói beavatkozástól független, széleskörű üzleti konfigurálhatóságot, ezzel csökkentve a technológiai Lock-in operatív hatását és biztosítva a belső adaptivitást (lásd SAP analógia). </li>
+                    <li><strong>Követelmény Részletezés (User Story / Use Case):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Aktor, Akció, Eredmény, Elfogadási Feltételek (GIVEN, WHEN, THEN formátum).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Érintetti Jogok Kezelése (GDPR-alapú funkciók):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Adattörlés (K-3):</strong> Személyes adatok visszaállíthatatlan, automatizált törlése az adatkezelési idő lejártakor.</li>
+                            <li><strong>Adatexport (K-4, K-5):</strong> Az érintettel kapcsolatba hozható valamennyi adat (leíró, esemény) exportálása xlsx, xml vagy csv formátumban.</li>
+                            <li><strong>Keresés/Szűrés (K-2):</strong> Keresési és szűrési lehetőség biztosítása az azonosítást lehetővé tevő adatok alapján.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Adatkezelés és Adatmodell Előzetes:</strong> A kulcsfontosságú üzleti adatok mezőinek, típusainak és forrásainak vázlata.</li>
+                    <li><strong>Üzleti Szabályok (Business Rules):</strong> Pontos leírás a funkciókat vezérlő logikai szabályokról, pl. jogosultsági mátrixok.</li>
+                </ul>
+            </div>
+
+            <!-- 7. Nem-funkcionális Követelmények -->
+            <div id="non_functional_req" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">7. Nem-funkcionális Követelmények (Architektúra, Minőség és Kontroll)</h3>
+                <p class="text-gray-600">A rendszer minőségi jellemzői és a technológiai elvárások, melyek biztosítják a hosszú távú stabilitást és a versenyeztethetőséget (Szállítófüggetlen Elvárások).</p>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Architektúra:</strong> A rendszer felépítését mikroszervíz architektúra mentén kell megvalósítani (nem monolitikusan).</li>
+                        <li><strong>Minőségbiztosítás:</strong> A kód átadásakor elvárt a minimum 80% Unit Teszt fedettség.</li>
+                        <li><strong>Válaszidő:</strong> Az azonosító alapú keresésnek maximum 5 másodperc alatt le kell futnia (terhelés alatt).</li>
+                        <li><strong>Kizárólagosság:</strong> A gyártói és üzemeltetői funkciók logikailag és folyamatában elkülönülnek a végfelhasználói felülettől.</li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong>7.1 Architektúra, Skálázhatóság és Kódminőség (Stratégiai Kontroll)</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Mikroszervíz architektúra:</strong> A rendszer logikai felépítését dekomponált, <strong>mikroszervíz architektúra</strong> mentén kell megvalósítani (horizontális skálázhatóságot támogatva).</li>
+                            <li><strong>Kódminőség:</strong> A kód átadásakor elvárt a <strong>minimum 80% Unit Teszt fedettség</strong> és <strong>automatizált tesztek</strong> futtatása minden build során.</li>
+                            <li><strong>Interoperabilitás:</strong> Követelmény a <strong>szabványos API-k, webhookok és eseményvezérelt architektúra</strong> használata az integrációkhoz (pl. Unit4, Salesforce).</li>
+                            <li><strong>Automatizálás:</strong> Támogatnia kell a folyamatok <strong>RPA</strong> támogatását és az <strong>adatvezérelt AI-komponensek</strong> folyamatos tanulását és fejlesztését.</li>
+                            <li><strong>Sablonkezelés:</strong> Elvárás a sablonok <strong>verziókövetése és auditálása</strong>, mely biztosítja, hogy a módosítás automatikusan dokumentált legyen.</li>
+                        </ul>
+                    </li>
+                    <li><strong>7.2 Megbízhatóság és Teljesítmény</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Rendelkezésre Állás:</strong> Éves szinten <strong>99,5% rendelkezésre állást</strong> biztosító architektúra (7x24 órás elérhetőség).</li>
+                            <li><strong>Teljesítmény:</strong> Részletes követelményt kell megfogalmazni arról, hogy a rendszer <strong>milyen válaszidőt garantál terhelés alatt</strong> (pl. azonosító alapú keresés max. 5 másodperc alatt lefut).</li>
+                            <li><strong>Skálázhatóság:</strong> Képesség a felhasználószám további 100%-os növekedésének követésére, közel lineárisan skálázódva.</li>
+                        </ul>
+                    </li>
+                    <li><strong>7.3 Biztonság és Jogszabályi Megfelelőség</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Licenc és Jogok:</strong> Korlátlan felhasználási licensz biztosítása, valamint a Megrendelő számára biztosított Escrow (Forráskód letét) keretében a teljes körű áttelepíthetőségi és módosítási jog biztosítása a szerződés megszűnése esetén.</li>
+                            <li><strong>Adatvédelem:</strong> A <strong>GDPR</strong> mellett kiemelten kezelendő a <strong>nemzetközi adatvédelmi szabályozások</strong> követése (pl. CCPA, HIPAA).</li>
+                            <li><strong>Biztonság:</strong> Részletes követelmények szükségesek a <strong>hozzáférés-kezelés, titkosítási eljárások, naplózás és incidenskezelés</strong> területén. Kockázatkezelés és biztonsági auditok rendszeres előírása.</li>
+                            <li><strong>Jelszókezelés:</strong> Kriptográfiailag védett tárolás (sózott hash), azonnali jelszóváltoztatás fiókvisszaállításkor.</li>
+                            <li><strong>Licenc és Jogok:</strong> Korlátlan felhasználási licensz biztosítása Saját Komponensekre.</li>
+                        </ul>
+                    </li>
+                    <li><strong>7.4 Használhatóság és Lokalizáció</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Böngésző Kompatibilitás:</strong> Chrome, Firefox, Edge utolsó két verziójának támogatása; reszponzivitás (desktop, tablet, mobil).</li>
+                            <li><strong>Lokalizáció:</strong> A rendszer lokalizálása (pl. további nyelv) forráskód változtatása nélkül, valamint a helyi jogi előírásoknak való megfelelés.</li>
+                            <li><strong>Akadálymentesség:</strong> Megfelelés a vonatkozó jogszabályi előírásoknak.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 8. Priorizálás & KPI-k -->
+            <div id="priority" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">8. Követelmények Priorizálása és Kulcs Teljesítmény Mutatók (KPI)</h3>
+                <p class="text-gray-600">Az igények rangsorolása és a siker mérőszámainak lefektetése.</p>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Prioritási Módszer:</strong> MoSCoW (Must, Should, Could, Won't have). A <strong>Must</strong> kategóriába tartozik az új flottamenedzseri riportoló felület létrehozása és <strong>MOL Move</strong> ügyfél adatok, illetve a <strong>CODA (Unit4)</strong> pénzügyi adatok integrációja.</li>
+                        <li><strong>Kulcs Teljesítmény Mutatók (KPIs):</strong>
+                            <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                                <li><strong>Tranzakciós Hatékonyság:</strong> Átlagos idő flottariporthoz való hozzáféréshez: <strong>&lt; 10 mp</strong>.</li>
+                                <li><strong>Manuális Munka Csökkentése:</strong> A havi manuálisan rögzített adatbevitelek számának csökkentése <strong>30%-kal</strong> a bázishoz képest.</li>
+                                <li><strong>Rendszerhasználat:</strong> Flottamenedzserek havi aktív felhasználóinak aránya: <strong>&gt; 90%</strong>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm mt-4">
+                    <li><strong>Prioritási Módszer:</strong> Pl. MoSCoW (Must, Should, Could, Won't have), vagy numerikus skála (1-5).</li>
+                    <li><strong>Kulcs Teljesítmény Mutatók (KPIs):</strong> Az üzleti célok mérésére szolgáló mérőszámok, amelyek alapján később értékelhető a fejlesztés sikere (pl. tranzakciós idő csökkenése, felhasználói elégedettség növekedése).</li>
+                </ul>
+            </div>
+
+            <!-- 9. Feltételezések és Korlátok -->
+            <div id="assumptions" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">9. Feltételezések és Korlátok (Assumptions and Constraints)</h3>
+                <p class="text-gray-600">Minden olyan feltétel, korlát, vagy kockázat, amely befolyásolhatja a projektet (pl. technológiai korlátok, meglévő rendszerek, pénzügyi korlátok).</p>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA:</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><strong>Feltételezések (Assumptions):</strong>
+                            <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                                <li>A <strong>MOL Rendszerek Elérhetősége:</strong> A MOL által üzemeltetett CRM és a Mol Move rendszerekkel való oda-vissza adatcserére szolgáló MOL oldali integrációs interfészek és felületek (API-k) időben rendelkezésre állnak a projekt ütemezése szerint, stabil és dokumentált formában.</li>
+                                <li>A <strong>CODA (Unit4)</strong> rendszer integrációs felületei alkalmasak és elérhetőek a pénzügyi tranzakciók (főkönyvi, számlaegyeztetés) zökkenőmentes adatcseréjéhez.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Korlátok (Constraints):</strong>
+                            <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                                <li><strong>Jogi és Technológiai Exit Korlát:</strong> A szállítói felhőben futó keretrendszerrel együtt működő megoldásnak jogilag és technikailag is képesnek kell lennie arra, hogy a Megrendelő azt áttelepítse, tovább használja és módosítsa saját infrastruktúráján a teljes funkcionalitás megőrzésével, amennyiben a szállítóval kötött szerződéses kapcsolat bármilyen okból megszűnik (beleértve a licencelt keretrendszerre vonatkozó jogokat is).</li>
+                                <li><strong>Technológiai Korlát:</strong> Az új MyCarius felületnek illeszkednie kell a vállalat egységes bejelentkezési (SSO) rendszeréhez.</li>
+                                <li><strong>Jogi Korlát:</strong> A telematikai adatok használata szigorúan a GDPR és a felhasználói hozzájárulások keretein belül történhet.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 10. Dokumentáció, Verziókezelés és Fogalomtár -->
+            <div id="glossary" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">10. Dokumentáció, Verziókezelés és Fogalomtár</h3>
+                <p class="text-gray-600">A dokumentum adminisztrációja.</p>
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong>Verziókezelés (Version Control):</strong> A dokumentum verziószáma, módosítási dátuma, szerzője és a főbb változások naplózása.</li>
+                    <li><strong>Fogalomtár (Glossary):</strong> A dokumentumban használt szakkifejezések definíciója.</li>
+                    <li><strong>Hivatkozások (References):</strong> Hivatkozott jogszabályok, szabványok és külső dokumentumok listája.</li>
+                </ul>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('[data-section-content]');
+            const contentPane = document.getElementById('content-pane');
+
+            // Kezdeti állapot: Vezetői Összefoglaló aktív
+            const initialSectionId = 'executive_summary';
+
+            /**
+             * Kezeli a menüpontok kattintási eseményét és a tartalom megjelenítését.
+             * @param {Event} event - A kattintási esemény.
+             */
+            function handleNavClick(event) {
+                event.preventDefault();
+                const targetId = event.currentTarget.getAttribute('data-section');
+
+                // Frissíti a menü kinézetét
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                event.currentTarget.classList.add('active', 'primary-color');
+                event.currentTarget.classList.remove('text-gray-700');
+
+
+                // Frissíti a tartalom megjelenését
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                // Görgeti a tartalompanelt a tetejére 
+                contentPane.scrollTop = 0;
+            }
+
+            // Eseménykezelők hozzáadása a menüpontokhoz
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavClick);
+            });
+
+            // Kezdeti beállítás: a Vezetői Összefoglaló megjelenítése
+            sections.forEach(section => {
+                if (section.id === initialSectionId) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Kezdeti állapot aktív linkjének beállítása
+            const initialLink = document.querySelector(`.nav-link[data-section="${initialSectionId}"]`);
+            if (initialLink) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                initialLink.classList.add('active', 'primary-color');
+                initialLink.classList.remove('text-gray-700');
+            }
+        });
+    </script>
+</body>
+</html>

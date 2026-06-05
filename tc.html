@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesztelési Koncepció Tartalmi Útmutató</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --primary-color: #005B9A; 
+            --primary-light: #e6f0f7;
+            --example-bg: #fffbe6;
+            --example-border: #facc15;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .primary-color {
+            color: var(--primary-color);
+        }
+        .primary-border {
+            border-left: 4px solid var(--primary-color); 
+        }
+        .section-header {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        .nav-link.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .nav-link:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: calc(100vh - 80px);
+            padding-top: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-container {
+                grid-template-columns: 280px 1fr;
+                gap: 2rem;
+                padding-top: 2rem;
+            }
+            .content-pane {
+                max-height: calc(100vh - 120px);
+                overflow-y: auto;
+                padding-right: 1rem;
+            }
+            .menu-pane {
+                position: sticky;
+                top: 80px;
+                height: fit-content;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Felső (Fix) Navigációs Sáv -->
+    <header class="sticky top-0 z-20 bg-white shadow-md p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="Projekt_dokumentaciok.html" class="flex items-center space-x-1 text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 p-2 rounded-lg bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="hidden sm:inline">Vissza</span>
+                </a>
+            <h1 class="text-2xl font-bold primary-color">TC Tartalmi útmutató</h1>
+            <div class="flex items-center space-x-3">
+                <p class="text-sm text-gray-600 hidden sm:block">Mercarius sablontár</p>
+                <div class="w-8 h-8 bg-gray-500 text-white flex items-center justify-center text-xs font-bold rounded-md">TC</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 content-container">
+        
+        <!-- Bal Oldali Navigáció (Menü) -->
+        <aside class="menu-pane hidden lg:block">
+            <div id="navigation-menu" class="p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+                <h2 class="text-lg font-semibold mb-3 text-gray-700">Tartalomjegyzék</h2>
+                <nav class="space-y-1 text-sm">
+                    <a href="#" data-section="tk_intro" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">1. Tesztelési Célok és Alapelvek</a>
+                    <a href="#" data-section="scope" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">2. Hatókör és Nem Tesztelt Területek</a>
+                    <a href="#" data-section="test_types" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">3. Elvégzendő Teszttípusok</a>
+                    <a href="#" data-section="execution" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">4. Tesztelési Folyamatok és Ütemezés</a>
+                    <a href="#" data-section="environment" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">5. Tesztkörnyezet és Erőforrások</a>
+                    <a href="#" data-section="closure" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">6. Dokumentáció és Lezárás</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Jobb Oldali Fő Tartalom -->
+        <section id="content-pane" class="lg:col-span-1 space-y-8 content-pane bg-white rounded-xl shadow-lg p-6 lg:p-8">
+            
+            <h2 class="text-3xl font-extrabold primary-color mb-6">Tesztelési Koncepció (TC) Célja</h2>
+            <div id="general_info" class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-8">
+                <p class="text-lg leading-relaxed text-gray-700">
+                    A Tesztelési Koncepció egy átfogó stratégiai dokumentum, amely meghatározza a rendszer minőségi ellenőrzésének kereteit. Célja a működőképesség igazolása, a hibák előfordulási valószínűségének minimalizálása, valamint a specifikációknak való megfelelés biztosítása.
+                </p>
+                <div class="mt-4 p-4 bg-green-50 rounded-xl border border-green-300 shadow-md text-sm text-green-800">
+                    <p class="font-bold mb-2">Jóváhagyási Kötelezettség:</p>
+                    <p>A Tesztelési Koncepciót az érintettekkel való egyeztetés után <strong class="font-bold">formálisan jóvá kell hagyatni</strong> a minőségi követelmények teljesítésének biztosítása érdekében.</p>
+                </div>
+            </div>
+
+            <!-- 1. Tesztelési Célok és Alapelvek -->
+            <div id="tk_intro" data-section-content class="section-content space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">1. Tesztelési Célok és Alapelvek</h3>
+                <p class="text-gray-600">A tesztelési tevékenység alapvető filozófiája és az elvárt célkitűzések.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Tesztelési Alapelvek:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Hibák látszólagos hiánya:</strong> A tesztelés kimutatja a hibákat, de nem igazolja, hogy nincsenek hibák.</li>
+                            <li><strong class="font-bold">Nem lehetséges kimerítő teszt:</strong> Kockázatelemzést és prioritásokat kell alkalmazni.</li>
+                            <li><strong class="font-bold">Korai tesztelés:</strong> A tesztelést a lehető legkorábban el kell kezdeni.</li>
+                            <li><strong class="font-bold">A hibamentes rendszer téveszméje:</strong> A hibajavítás önmagában nem elegendő, a rendszernek funkcionálisan is használhatónak kell lennie.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">A Tesztelés Céljai:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>A termék működőképességének igazolása, az éles-üzemi hibák valószínűségének csökkentése.</li>
+                            <li>A specifikációknak és a rendeltetésszerű működésnek való megfelelés ellenőrzése (BRS, FS, TS).</li>
+                            <li>Biztonságos használattal kapcsolatos elvárásoknak való megfelelés.</li>
+                            <li>Más termékekkel és rendszerekkel való kompatibilitás ellenőrzése.</li>
+                            <li>Hibakezelés hatékonyságának ellenőrzése (negatív tesztelés).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Alapelv Alkalmazása</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Cél:</span> A felhasználói adatokkal végzett lekérdezés válaszidejének vizsgálata.</li>
+                        <li><span class="font-bold">Megközelítés:</span> A kimerítő teszt helyett kockázatelemzést végzünk: mivel a lekérdezés kritikusan fontos, <strong>Terheléses Tesztet</strong> alkalmazunk a leggyakoribb 10 felhasználói útvonalra. (Igazolja: nem kimerítő, de priorizált teszt).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. Hatókör és Nem Tesztelt Területek -->
+            <div id="scope" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">2. Hatókör és Nem Tesztelt Területek</h3>
+                <p class="text-gray-600">A tesztelés tárgyának és határainak pontos meghatározása. <strong>Különös figyelmet igényel</strong> a nem tesztelendő funkciók tételes indoklása.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Tesztelés Hatóköre (IN-SCOPE):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Érintett rendszerek és alrendszerek (pl. MerCore, CODA interfész).</li>
+                            <li>Tesztelendő funkciók (pl. kárbejelentés, számlázási analitika generálása).</li>
+                            <li>Az elvégzendő tesztek tárgya (funkciócsoportok, nagyobb modulok, interfészek szintjén).</li>
+                        </ul>
+                    </li>
+                    <li class="p-3 bg-red-50 border-l-4 border-red-500 rounded-lg shadow-inner mt-3">
+                        <strong class="font-bold text-red-800">NEM TESZTELENDŐ TERÜLETEK (OUT-OF-SCOPE) - KÖTELEZŐ INDOKLÁS!</strong>
+                        <p class="text-gray-700 mt-1">A Tesztkoncepcióban minden, alább nevesített teszttípusra tételesen ki kell térni, és részletesen indokolni kell, ha az adott típusú tesztet nem kívánják végrehajtani (pl. "Miért nem szükséges DRP teszt").</p>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1 text-red-700">
+                            <li>A Megrendelő a javaslatot a Tesztelési Koncepció formális jóváhagyásával fogadja el.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Hatókör és Kizárás</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">IN-SCOPE:</span> Kárbejelentési folyamat (UI és backend logika), Integráció a <strong>CODA (Unit4)</strong> felé (adatstruktúra és adathívás).</li>
+                        <li><span class="font-bold">OUT-OF-SCOPE:</span> <strong>BCP (Üzletmenet folytonossági) teszt.</strong> <span class="text-red-700 italic font-semibold">Indoklás:</span> A projekt jelenlegi fázisában az alkalmazás kiesése nem kritikus, a manuális folyamat (AS-IS) elegendő átmeneti megoldás. A BCP teszt a 2. fázisban, az éles bevezetés előtt lesz esedékes, egy dedikált DRP/BCP terv részeként.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. Elvégzendő Teszttípusok -->
+            <div id="test_types" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">3. Elvégzendő Teszttípusok</h3>
+                <p class="text-gray-600">A módszertan által kötelezően megkülönböztetett teszttípusok felsorolása és azok belépési/elfogadási kritériumai.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Fejlesztői Komponens Teszt:</strong> Fejlesztők által végrehajtott tesztek saját munkájuk ellenőrzésére (Unit Test).</li>
+                    <li><strong class="font-bold">Integrációs Teszt:</strong> A rendszer együttműködése az informatikai környezettel, infrastruktúrával és kapcsolódó alkalmazásokkal (Interfész teszt).</li>
+                    <li><strong class="font-bold">Funkcionális Tesztek:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Normál teszt / Quick test:</strong> Helyes adatok bevitelével teszteli a funkciókat.</li>
+                            <li><strong>Hibateszt / Fault test:</strong> Hibás adatok esetén a rendszer megfelelő kezelését (érthető hibaüzenet, lefagyás kizárása) ellenőrzi.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Terheléses Teszt:</strong> A rendszer terheléskor nyújtott teljesítményének vizsgálata a specifikációban előírt értékekkel szemben (pl. válaszidő).</li>
+                    <li><strong class="font-bold">Felhasználói Tesztek (UAT):</strong> Végfelhasználók által végzett tesztelés valós körülmények között.
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong>Normál felhasználói teszt:</strong> Napi gyakorlatban előforduló tevékenység-sorozatok.</li>
+                            <li><strong>Felhasználói stresszteszt:</strong> Extrém terhelés a rendszerre (teljesítmény teszt felhasználói oldala).</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Üzemeltetési Teszt:</strong> A rendszer üzemeltethetőségének, karbantartásának kipróbálása a leendő üzemeltetők által (TS-ben leírtak ellenőrzése).</li>
+                    <li><strong class="font-bold">BCP (Üzletmenet folytonossági) / DRP (Katasztrófa helyreállítási) Teszt:</strong> A tervben leírt visszaállítási és üzletmenet-fenntartási folyamatok szimulálása.</li>
+                    <li><strong class="font-bold">Betörési Teszt (Penetration Test):</strong> Informatikai védelmi funkciók és adatvédelmi funkciók ellenőrzése.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Tesztelési Folyamatok és Ütemezés -->
+            <div id="execution" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">4. Tesztelési Folyamatok, Ütemezés és Kommunikáció</h3>
+                <p class="text-gray-600">A tesztelési fázis lebonyolításának operatív leírása.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Tesztelési Ütemezés:</strong> A leszállítás, tesztelések és élesbe állás tervezett időbeli lefutása.</li>
+                    <li><strong class="font-bold">Teszttervezési és Végrehajtási Folyamat:</strong> A tesztesetek előkészítése, végrehajtása, hibák rögzítése (pl. tesztkövető eszköz használatával).</li>
+                    <li><strong class="font-bold">Hibakezelési és Javítási Folyamat:</strong> Hibajelentés, hiba prioritás (pl. kritikus, major, minor), a javítási ciklus (Fix/Retest/Close).</li>
+                    <li><strong class="font-bold">Kommunikációs Terv:</strong> Kommunikáció szabályozása a tesztszervezeten belül, az üzleti egységekkel és a szállítókkal. Döntési szintek meghatározása.</li>
+                    <li><strong class="font-bold">Teszt Elfogadási (Acceptance) Kritériuma:</strong> A feltétel, ami alapján az adott tesztfázis lezártnak minősül (pl. <strong>Kritikus hibák száma = 0</strong>, Major hibák száma < 3).</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Hibakezelési Folyamat</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Hiba Rögzítése:</span> Tesztelő rögzíti a hibát a Jira-ban, súlyosság besorolással (Critical, Major, Minor).</li>
+                        <li><span class="font-bold">Súlyossági Szint (Critical):</span> Megakadályozza a fő üzleti folyamat végrehajtását (pl. nem lehet kárt bejelenteni). <strong>Elfogadási Krit.: Critical hiba esetén a tesztfázis azonnal felfüggesztésre kerül.</strong></li>
+                        <li><span class="font-bold">Kommunikáció:</span> Minden Critical hiba esetén napi 1 órás hibaértekezlet (Defect Triage) szükséges a döntéshozókkal.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5. Tesztkörnyezet és Erőforrások -->
+            <div id="environment" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">5. Tesztkörnyezet és Erőforrások</h3>
+                <p class="text-gray-600">A tesztelés végrehajtásához szükséges technikai feltételek és humán erőforrások.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Környezeti Feltételek:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Szükséges hardver- és szoftvereszközök (pl. dedikált UAT szerver).</li>
+                            <li>Integrációs tesztben részt vevő környezeti rendszerek és külső partnerek (pl. <strong>CODA (Unit4)</strong> teszt interfészének elérhetősége).</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Tesztadatokkal Szembeni Követelmények:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Adatok biztosításának felelősei, határidő.</li>
+                            <li>Adatforrás, mennyiség és minőség (pl. anonimizált, reprezentatív adatkör).</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Erőforrások:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Teszt eszközök (pl. Jira, Postman, Selenium).</li>
+                            <li>Személyi erőforrás (teszt menedzser, tesztelők, fejlesztők/támogatók).</li>
+                            <li>Szerepkörök, felelősök és feladatok.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Kockázatok:</strong> A tesztelési fázis kockázatai (pl. tesztkörnyezet instabilitása, elégtelen tesztadat).</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Erőforrás és Környezet</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Környezet:</span> Az UAT tesztek a <strong>TEST</strong> sík elkülönített virtuális környezetében futnak (lásd TS 2. pont). A tesztelés alatt a környezet <strong>nem frissülhet</strong>.</li>
+                        <li><span class="font-bold">Tesztadat:</span> 500 db anonimizált, valósághű jármű- és 100 db kárbejelentési adat szükséges. Felelős: Adatmenedzsment Csapat, Határidő: UAT start előtt 5 nappal.</li>
+                        <li><span class="font-bold">Eszköz:</span> A funkcionális tesztekhez a szállító biztosítja a <strong>Selenium</strong> automatizálási scripteket.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 6. Dokumentáció és Lezárás -->
+            <div id="closure" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">6. Tesztelési Dokumentáció és Lezárás</h3>
+                <p class="text-gray-600">A tesztelési fázisban keletkező hivatalos dokumentumok és a fázis lezárásának eljárása.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Tesztelési Dokumentációs Rend:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Teszttervek, tesztesetleírások (teszt szkriptek), tesztjegyzőkönyvek.</li>
+                            <li>Hibalisták (hibajelentések) a hibák követhetőségének biztosítására.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Összefoglaló Záró Jelentés:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Tesztelés tapasztalatainak összegzése a tesztelési jegyzőkönyvek alapján.</li>
+                            <li>Talált hibák összegzése és rangsorolása (súlyosság szerint).</li>
+                            <li>Javaslat a még ki nem javított hibák kezelésére (javítási határidő, ügyviteli kerülőút).</li>
+                        </ul>
+                    </li>
+                    <li class="p-3 bg-red-50 border-l-4 border-red-500 rounded-lg shadow-inner mt-3">
+                        <strong class="font-bold text-red-800">Kritikus Hibák Kezelése a Lezáráskor:</strong>
+                        <p class="text-gray-700 mt-1">A rendszer <strong>kijavítatlan kritikus hibákkal nem vehető át</strong>. A záró jelentést a Megrendelő képviselője véleményezi és a javítások után veszi át.</p>
+                    </li>
+                </ul>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('[data-section-content]');
+            const contentPane = document.getElementById('content-pane');
+
+            // Kezdeti állapot: Tesztelési Célok és Alapelvek aktív
+            const initialSectionId = 'tk_intro';
+
+            /**
+             * Kezeli a menüpontok kattintási eseményét és a tartalom megjelenítését.
+             * @param {Event} event - A kattintási esemény.
+             */
+            function handleNavClick(event) {
+                event.preventDefault();
+                const targetId = event.currentTarget.getAttribute('data-section');
+
+                // Frissíti a menü kinézetét
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                event.currentTarget.classList.add('active', 'primary-color');
+                event.currentTarget.classList.remove('text-gray-700');
+
+
+                // Frissíti a tartalom megjelenését
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                // Görgeti a tartalompanelt a tetejére
+                contentPane.scrollTop = 0;
+            }
+
+            // Eseménykezelők hozzáadása a menüpontokhoz
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavClick);
+            });
+
+            // Kezdeti beállítás: az első fejezet megjelenítése
+            sections.forEach(section => {
+                if (section.id === initialSectionId) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Kezdeti állapot aktív linkjének beállítása
+            const initialLink = document.querySelector(`.nav-link[data-section="${initialSectionId}"]`);
+            if (initialLink) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                initialLink.classList.add('active', 'primary-color');
+                initialLink.classList.remove('text-gray-700');
+            }
+        });
+    </script>
+</body>
+</html>

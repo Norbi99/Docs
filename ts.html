@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technikai Specifikáció Tartalmi Útmutató</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --primary-color: #005B9A; 
+            --primary-light: #e6f0f7;
+            --example-bg: #fffbe6;
+            --example-border: #facc15;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .primary-color {
+            color: var(--primary-color);
+        }
+        .primary-border {
+            border-left: 4px solid var(--primary-color); 
+        }
+        .section-header {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        .nav-link.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .nav-link:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: calc(100vh - 80px);
+            padding-top: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-container {
+                grid-template-columns: 280px 1fr;
+                gap: 2rem;
+                padding-top: 2rem;
+            }
+            .content-pane {
+                max-height: calc(100vh - 120px);
+                overflow-y: auto;
+                padding-right: 1rem;
+            }
+            .menu-pane {
+                position: sticky;
+                top: 80px;
+                height: fit-content;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="sticky top-0 z-20 bg-white shadow-md p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="Projekt_dokumentaciok.html" class="flex items-center space-x-1 text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 p-2 rounded-lg bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="hidden sm:inline">Vissza</span>
+                </a>
+
+            <h1 class="text-2xl font-bold primary-color">TS Tartalmi útmutató</h1>
+            <div class="flex items-center space-x-3">
+                <p class="text-sm text-gray-600 hidden sm:block">Mercarius sablontár</p>
+                <div class="w-8 h-8 bg-gray-500 text-white flex items-center justify-center text-xs font-bold rounded-md">TS</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 content-container">
+        
+        <aside class="menu-pane hidden lg:block">
+            <div id="navigation-menu" class="p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+                <h2 class="text-lg font-semibold mb-3 text-gray-700">Tartalomjegyzék</h2>
+                <nav class="space-y-1 text-sm">
+                    <a href="#" data-section="ts_intro" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">1. Cél és Technikai Alapelvek</a>
+                    <a href="#" data-section="architecture" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">2. Rendszer Architektúra</a>
+                    <a href="#" data-section="data_model" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">3. Adatmodell és Adatáramlás</a>
+                    <a href="#" data-section="internal_proc" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">4. Rendszer Belső Folyamatai</a>
+                    <a href="#" data-section="interfaces" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">5. Külső Interfészek Ismertetése</a>
+                    <a href="#" data-section="op_support" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">6. Üzemeltetési Támogatás és Exit Stratégia</a>
+                </nav>
+            </div>
+        </aside>
+
+        <section id="content-pane" class="lg:col-span-1 space-y-8 content-pane bg-white rounded-xl shadow-lg p-6 lg:p-8">
+            
+            <h2 class="text-3xl font-extrabold primary-color mb-6">Technikai Specifikáció (TS) Célja</h2>
+            <div id="general_info" class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-8">
+                <p class="text-lg leading-relaxed text-gray-700">
+                    A Technikai Specifikáció (TS) célja, hogy a funkcionális követelményeket (FS) konkrét technológiai megoldásokká és részletes kivitelezési tervekké képezze le. Pontos útmutatást nyújt a fejlesztőknek, rendszermérnököknek és más technikai szereplőknek.
+                </p>
+                <div class="mt-4 p-4 bg-green-50 rounded-xl border border-green-300 shadow-md text-sm text-green-800">
+                    <p class="font-bold mb-2">Fontos módszertani szempont:</p>
+                    <p>A TS alapvetően a funkcionális specifikációk (FS) logikai csoportosítását követi, vagyis minden egyes FS-hez készülhet egy külön technikai specifikáció. A TS kidolgozása az FS készítésével megegyező iteratív ciklusban történik, szorosan együtt mozogva a megvalósítással (DevOps elv).</p>
+                </div>
+            </div>
+
+            <div id="ts_intro" data-section-content class="section-content space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">1. Cél és Technikai Alapelvek</h3>
+                <p class="text-gray-600">A TS bevezetője meghatározza a dokumentum fő céljait, hatókörét és a tervezés során alkalmazott alapvető mérnöki elveket, melyek garantálják a rendszer minőségét és jövőbeli bővíthetőségét.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Cél és Hatókör:</strong> Rendszer hardver/szoftver követelmények, architektúra, hálózati elrendezés, adatbázis-struktúra.</li>
+                    <li><strong class="font-bold">Technikai Alapelvek:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Modularitás és Újrafelhasználhatóság:</strong> A rendszer kisebb, önállóan működő modulokra bontása (pl. Shared Libraries/Microservices), csökkentve a fejlesztési időt.</li>
+                            <li><strong class="font-bold">Egyszerűség és Komplexitás Csökkentése:</strong> A hibalehetőségek számának minimalizálása, a kód olvashatóságának és karbantarthatóságának növelése.</li>
+                            <li><strong class="font-bold">Skálázhatóság és Bővíthetőség:</strong> Képesség a megnövekedett terhelés és új funkciók kezelésére (pl. Kubernetes/Containerizáció).</li>
+                            <li><strong class="font-bold">Biztonság és Adatvédelem:</strong> Érzékeny adatok titkosítása, hitelesítés, hozzáférési jogosultságok, GDPR-megfelelés (pl. Token-alapú jogosultságkezelés).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Technikai Alapelvek (Car Fleet Management App)</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Modularitás:</span> A riportgenerálás és a kárbejelentés funkció egyedi, független mikroszolgáltatásként kerül megvalósításra (Java Spring Boot), melyek saját adatbázissal rendelkeznek.</li>
+                        <li><span class="font-bold">Skálázhatóság:</span> Az alkalmazásszerver réteg (API Gateway) egy klaszterben üzemel, biztosítva a horizontális skálázhatóságot az elvárt 99.5%-os rendelkezésre állás (K-22) eléréséhez.</li>
+                        <li><span class="font-bold">Biztonság:</span> Minden külső és belső API-hívás OAuth2.0 Token-alapú hitelesítéssel történik. Minden személyes adat (pl. vezető neve, cím) tárolása és továbbítása end-to-end titkosítással valósul meg.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="architecture" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">2. Rendszer Architektúra</h3>
+                <p class="text-gray-600">A rendszer felépítésének, alkotóelemeinek, valamint a külső és belső környezethez való illeszkedésének bemutatása.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Műszaki Környezet Leírása:</strong> Szerverek (CPU, RAM, tárhely), hardver- és szoftverelemek (OS, adatbázis motor, frameworkök), gyártói támogatottság.</li>
+                    <li><strong class="font-bold">Hálózati Konfiguráció és Biztonság:</strong> Topológia, performancia, redundancia, tűzfalak (WAF), terheléselosztás (Load Balancer) beállításai.</li>
+                    <li><strong class="font-bold">Telepítési és Skálázási Stratégia:</strong> Hogyan történik a szoftver kiadása (CI/CD), és milyen mechanizmusok biztosítják a felhasználószám növekedésének követését (pl. auto-scaling, klaszterezés).</li>
+                    <li><strong class="font-bold">Architekturális Rétegződés:</strong> A rétegek felelősségeinek és technológiai megoldásainak ismertetése (pl. Prezentációs réteg (React), Üzleti logika réteg (Node.js API), Adatréteg (PostgreSQL)).
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>B2B szolgáltatási réteg.</li>
+                            <li>B2C szolgáltatási felület.</li>
+                            <li>Belső használói felület.</li>
+                            <li>Rendszerüzemeltetési szolgáltatási felület.</li>
+                            <li>Emelt szintű szolgáltatások.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Architekturális Rétegződés (Webalkalmazás)</p>
+                    <table class="w-full text-xs mt-3 border border-yellow-700/50">
+                        <thead>
+                            <tr class="bg-yellow-100 text-yellow-800">
+                                <th class="p-2 text-left">Réteg</th>
+                                <th class="p-2 text-left">Felelősség</th>
+                                <th class="p-2 text-left">Alkalmazott Technológia</th>
+                                <th class="p-2 text-left">Kommunikáció</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-yellow-700/20">
+                                <td class="p-2 font-semibold">Prezentációs Réteg (Belső HF)</td>
+                                <td class="p-2">Felhasználói felület és UX logika.</td>
+                                <td class="p-2">React 18.x (TypeScript), Tailwind CSS.</td>
+                                <td class="p-2">REST/HTTPS (JSON) a Backend API felé.</td>
+                            </tr>
+                            <tr class="border-b border-yellow-700/20 bg-yellow-50">
+                                <td class="p-2 font-semibold">Üzleti Logika Réteg (API Gateway)</td>
+                                <td class="p-2">Tranzakciók kezelése, jogosultság-ellenőrzés.</td>
+                                <td class="p-2">Node.js / Express (v16+).</td>
+                                <td class="p-2">Saját Mikroszolgáltatások (gRPC) és Külső rendszerek (API).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-semibold">Adatréteg</td>
+                                <td class="p-2">Adatok perzisztenciája és integritása.</td>
+                                <td class="p-2">PostgreSQL (v14.x), TimescaleDB (Telemetriához).</td>
+                                <td class="p-2">SSL/TCP a Backend API felé.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="data_model" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">3. Adatmodell és Adatáramlás</h3>
+                <p class="text-gray-600">A rendszer által kezelt adatok logikai és fizikai struktúrájának, valamint a rendszeren belüli mozgásának részletes leírása.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Logikai Adatmodell (E-R diagram, Normalizáció):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Entitások és Attribútumok (pl. "Jármű", "Szerződés", "Flottamenedzser").</li>
+                            <li>Kapcsolatok (1:1, 1:N, N:M) és Integritási Szabályok.</li>
+                            <li>Normalizáció szintjeinek meghatározása (pl. 3NF).</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Fizikai Adatmodell (Táblák, Indexek):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Táblák, Oszlopok, Adattípusok (konkrét SQL típusokkal).</li>
+                            <li>Indexek, Külső Kulcsok, Triggerek, Nézetek, Tárolt Eljárások.</li>
+                            <li>Adattárolási szabályok (pl. Partitioning, Clustering) a teljesítmény érdekében.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Adatfolyamok (DFD, Kezdet, Út, Vég):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li>Adatfolyam elemei, forrása és célállomása.</li>
+                            <li>Adattranszformáció és Validáció (pl. bejövő XML konvertálása JSON-ra).</li>
+                            <li>Adatáramlás típusa (aszinkron (Kafka/RabbitMQ) vagy szinkron).</li>
+                            <li>Biztonsági Aspektusok (titkosítás az adatfolyam során).</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Fizikai Adatmodell Részlet (Jármű törzs)</p>
+                    <table class="w-full text-xs mt-3 border border-yellow-700/50">
+                        <thead>
+                            <tr class="bg-yellow-100 text-yellow-800">
+                                <th class="p-2 text-left">Oszlop (company.offical_name)</th>
+                                <th class="p-2 text-left">Adattípus</th>
+                                <th class="p-2 text-left">Integritás / Index</th>
+                                <th class="p-2 text-left">Leírás</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-yellow-700/20">
+                                <td class="p-2 font-semibold">vehicle_id</td>
+                                <td class="p-2">UUID</td>
+                                <td class="p-2">Primary Key (PK)</td>
+                                <td class="p-2">Jármű globális egyedi azonosítója.</td>
+                            </tr>
+                            <tr class="border-b border-yellow-700/20 bg-yellow-50">
+                                <td class="p-2 font-semibold">license_plate</td>
+                                <td class="p-2">VARCHAR(7)</td>
+                                <td class="p-2">UNIQUE Index (IX_License)</td>
+                                <td class="p-2">Rendszám. Kötelező a kitöltés.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-semibold">driver_name</td>
+                                <td class="p-2">VARCHAR(100)</td>
+                                <td class="p-2">Encrypted Field (AES-256)</td>
+                                <td class="p-2">A jármű vezetőjének neve (GDPR adat).</td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="p-2 font-semibold">contract_fk</td>
+                                <td class="p-2">UUID</td>
+                                <td class="p-2">Foreign Key (FK) -> contract.id</td>
+                                <td class="p-2">A kapcsolódó bérleti szerződés azonosítója.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="internal_proc" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">4. Rendszer Belső Folyamatai</h3>
+                <p class="text-gray-600">A modulokon, rendszereken átívelő folyamatok bemutatása, technológiai szempontból vizsgálva azok megvalósítását és egymásra hatását (pl. aszinkron üzenetkezelés).</p>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Folyamatok bemutatása:</strong> A rendszer belső folyamatainak (pl. éjszakai adatszinkronizáció, riport generálás) leírása, a modulok közötti kommunikáció módja (pl. Kafka üzenetsor, REST hívás).</li>
+                    <li><strong class="font-bold">Feldolgozási Lépések és Logika:</strong> A folyamatok technikai feldolgozási lépései, az adatkonverzió és a háttérműveletek sorrendje.</li>
+                    <li><strong class="font-bold">Hiba és Kivételkezelés:</strong> Hogyan kezeli a rendszer a belső hibákat (pl. DB timeout, üzenetsor elérhetetlensége), és milyen lépéseket tesz a visszaállításhoz (pl. újrapróbálkozás (Retry), Dead Letter Queue (DLQ)).</li>
+                    <li><strong class="font-bold">Időzített Feladatok (Batch):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Adatarchiválás:</strong> Az 5 évnél régebbi tranzakciós adatok automatikus archiválása a hideg tárolóba (S3 Glacier/Azure Archive).</li>
+                            <li><strong class="font-bold">Adatszinkronizáció:</strong> Folyamatos, esemény alapú szinkronizáció a <strong>CODA (Unit4)</strong> pénzügyi rendszerrel.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div id="interfaces" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">5. Külső Interfészek Ismertetése</h3>
+                <p class="text-gray-600">A rendszer és a külső rendszerek (CODA, MOL Move, Telematika) közötti adatcsere protokolljainak, biztonsági mechanizmusainak és adatstruktúráinak technikai leírása.</p>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Interfészek azonosítása és prioritása:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">CODA (Unit4) Integráció:</strong> Könyvelési adatok (számlázási analitika) és főkönyvi adatok cseréje.
+                                <ul class="list-[square] list-inside ml-4 mt-1 space-y-1">
+                                    <li><strong class="font-bold">Protokoll:</strong> REST API (HTTPS).</li>
+                                    <li><strong class="font-bold">Hitelesítés:</strong> JWT Token, mely 30 percenként frissül (OAuth2.0 flow).</li>
+                                    <li><strong class="font-bold">Adatstruktúra:</strong> XML/JSON (függően a CODA végpont elvárásaitól), részletes XML/JSON schema mellékelve.</li>
+                                </ul>
+                            </li>
+                            <li><strong class="font-bold">MOL Move API Integráció:</strong> Felhasználói és tranzakciós adatok fogadása a MerCore rendszerbe.
+                                <ul class="list-[square] list-inside ml-4 mt-1 space-y-1">
+                                    <li><strong class="font-bold">Protokoll:</strong> Aszinkron Webhook (HTTPS POST) és Szinkron REST (GET).</li>
+                                    <li><strong class="font-bold">Hitelesítés:</strong> API Key + IP Whitelisting.</li>
+                                    <li><strong class="font-bold">Frekvencia:</strong> Valós idejű (Webhook) tranzakciók rögzítése.</li>
+                                </ul>
+                            </li>
+                            <li><strong class="font-bold">Telematikai Adatfogadás:</strong> Járműadatok (GPS, diagnosztika) befogadása.
+                                <ul class="list-[square] list-inside ml-4 mt-1 space-y-1">
+                                    <li><strong class="font-bold">Protokoll:</strong> MQTT (IoT üzenetkezelés) / gRPC.</li>
+                                    <li><strong class="font-bold">Adatbázis:</strong> TimescaleDB a nagy mennyiségű idősoros adat kezelésére.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Interfész Biztonság:</strong> Minden interfésznek támogatnia kell a minimális TLS 1.2-es titkosítást és a teljes adatcsere során a titkosított kapcsolatot.</li>
+                    <li><strong class="font-bold">Interfész Dokumentáció:</strong> Minden interfészről Swagger/OpenAPI dokumentációt kell készíteni, amely automatikusan generálódik a forráskódból.</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Interfész Specifikáció Részlet (MOL Move API - Lekérdezés)</p>
+                    <pre class="bg-yellow-100 p-2 rounded-md overflow-x-auto text-xs mt-2"><code>GET /v1/customers/{customer_id}/fleet_info
+Accept: application/json
+Authorization: Bearer [JWT_TOKEN]
+
+RESPONSE (200 OK):
+{
+  "customer_id": "UUID-12345",
+  "total_vehicles": 42,
+  "last_telemetry_timestamp": "2025-10-25T14:30:00Z"
+}</code></pre>
+                </div>
+            </div>
+
+            <div id="op_support" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">6. Üzemeltetési Támogatás és Exit Stratégia</h3>
+                <p class="text-gray-600">A rendszer üzemeltetési modelljének (Managed Service) technikai feltételei és az **Exit Kockázat** (szállítófüggőség) mérséklésének technikai implementációi.</p>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Üzemeltetési Modell (Managed Service):</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Infrastruktúra:</strong> A rendszer a Szállító saját felhőjében/infrastruktúráján fut (PaaS/SaaS megközelítés).</li>
+                            <li><strong class="font-bold">Szolgáltatási Szint (SLA):</strong> A Szállító felelős a 7x24 órás elérhetőségért (<strong class="font-bold">99.5% Rendelkezésre állás</strong>), a hibaelhárításért (<strong class="font-bold">RTO/RPO-nak megfelelően</strong>) és a rendszeres patch-elésért.</li>
+                            <li><strong class="font-bold">Monitoring és Riasztás:</strong> A Szállító köteles a Megrendelő számára hozzáférést biztosítani a rendszerállapotot mutató, valós idejű dashboardokhoz (pl. Grafana/Prometheus).</li>
+                        </ul>
+                    </li>
+
+                    <li class="p-3 bg-red-50 border-l-4 border-red-500 rounded-lg shadow-inner mt-3">
+                        <strong class="font-bold text-red-800">Kockázatkezelés: Kezelt Kiszolgáltatottság (Managed Lock-in)</strong>
+                        <p class="text-gray-700 mt-1">A legnagyobb üzleti kockázat a <strong> konfigurációs tudás elvesztése</strong>. Ezt az alábbi technikai mechanizmusok mérséklik:</p>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1 text-red-700">
+                            <li><strong class="font-bold">Forráskód Letét (Escrow):</strong> A Szállító köteles a teljes forráskódot, a telepítési szkripteket (pl. Terraform, Ansible) és a teljes adatbázis sémát Escrow-ba helyezni, a szerződés felbontásának esetére.</li>
+                            <li><strong class="font-bold">Konfiguráció Verziókezelése:</strong> Minden üzemeltetési konfigurációs fájl (pl. Kubernetes YAML-ok, Logika konfigurációk) verziókövetés alatt áll (Git), és a Megrendelő számára olvasási hozzáférés (Read-Only access) biztosított a teljes konfigurációs állományhoz.</li>
+                            <li><strong class="font-bold">Rendszerfüggetlenség:</strong> A megoldásnak platformfüggetlen konténer technológiára kell épülnie (Docker/Kubernetes), amely garantálja, hogy a Megrendelő azt <strong class="font-bold">áttelepítheti és tovább használhatja</strong> saját infrastruktúráján (pl. Azure/AWS/On-Premise) a teljes funkcionalitás megőrzésével.</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong class="font-bold">Rendszerdokumentáció:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Runbookok:</strong> Részletes, lépésről lépésre szóló üzemeltetési kézikönyvek (pl. Rendszerindítás, Karanténba helyezés, Adatbázis rollback).</li>
+                            <li><strong class="font-bold">DRP (Katasztrófa helyreállítási) Eljárás:</strong> Az adatbázis és a fájlrendszer helyreállítási idejének és pontjának (RTO/RPO) technikai betartása.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Konfiguráció Verziókezelés (Exit Kockázat Csökkentése)</p>
+                    <p class="text-gray-700 ml-2">A MerCore rendszer konfigurációja a `mercore-config-repo` nevű privát Git repóban található. A Megrendelő <strong>read-only</strong> hozzáféréssel rendelkezik ehhez a repóhoz. Így a Szállító távozása esetén a konfigurációs és infrastruktúra (IaC) tudás nem vész el, és az áttelepítés alapját képezi.</p>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('[data-section-content]');
+            const contentPane = document.getElementById('content-pane');
+
+            // Kezdeti állapot: Architektúra aktív (megjelenik a bevezető)
+            const initialSectionId = 'ts_intro';
+
+            /**
+             * Kezeli a menüpontok kattintási eseményét és a tartalom megjelenítését.
+             * @param {Event} event - A kattintási esemény.
+             */
+            function handleNavClick(event) {
+                event.preventDefault();
+                const targetId = event.currentTarget.getAttribute('data-section');
+
+                // Frissíti a menü kinézetét
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                event.currentTarget.classList.add('active', 'primary-color');
+                event.currentTarget.classList.remove('text-gray-700');
+
+
+                // Frissíti a tartalom megjelenését
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                // Görgeti a tartalompanelt a tetejére 
+                contentPane.scrollTop = 0;
+            }
+
+            // Eseménykezelők hozzáadása a menüpontokhoz
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavClick);
+            });
+
+            // Kezdeti beállítás: az első fejezet megjelenítése
+            sections.forEach(section => {
+                if (section.id === initialSectionId) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Kezdeti állapot aktív linkjének beállítása
+            const initialLink = document.querySelector(`.nav-link[data-section="${initialSectionId}"]`);
+            if (initialLink) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                initialLink.classList.add('active', 'primary-color');
+                initialLink.classList.remove('text-gray-700');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt Dokumentációk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #005B9A;
+            --secondary-color: #facc15;
+            --bg-light: #f7f9fb;
+            --text-dark: #1F2937;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+        .header-bg {
+            background-color: var(--primary-color);
+        }
+        .text-primary {
+            color: var(--primary-color);
+        }
+        .border-primary {
+            border-color: var(--primary-color);
+        }
+        .section-box {
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+        }
+        
+        .flow-container {
+            position: relative;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .doc-detail-box {
+            background-color: #f0f8ff;
+            border-top: 3px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            margin-top: 1rem;
+        }
+        .doc-detail-box h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .doc-detail-box ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+        .doc-detail-box li {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #475569;
+            margin-left: 1rem;
+            position: relative;
+            padding-left: 0.5rem;
+        }
+        .doc-detail-box li::before {
+            content: '•';
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .example-box {
+            padding: 1rem;
+            background-color: #fffbeb;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            margin-top: 1rem;
+        }
+        .example-box p, .example-box ul, .example-box li {
+            font-size: 0.875rem;
+        }
+        .example-box ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+        }
+        .link-container {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background-color: #e5f4ff;
+            border-radius: 0.375rem;
+            border: 1px dashed #93c5fd;
+        }
+        .link-container a {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        .link-container a:hover {
+            text-decoration: underline;
+            color: #003c6e;
+        }
+        .list-square {
+            list-style-type: square;
+        }
+
+        .svg-text-primary { fill: var(--primary-color); }
+        .svg-text-secondary { fill: var(--text-dark); }
+        .svg-bg-secondary { fill: var(--secondary-color); }
+        .svg-stroke-primary { stroke: var(--primary-color); }
+        .svg-stroke-secondary { stroke: var(--secondary-color); }
+        .svg-stroke-gray { stroke: #94a3b8; }
+        .svg-fill-gray { fill: #f1f5f9; }
+
+        .contract-boundary {
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.25rem;
+            background-color: #fee2e2;
+            border: 2px solid #ef4444;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.1), 0 4px 6px -4px rgba(239, 68, 68, 0.05);
+        }
+        .contract-boundary h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #b91c1c;
+            line-height: 1.2;
+        }
+        .contract-boundary h4 {
+            font-size: 0.9rem;
+        }
+        .contract-boundary p {
+            font-size: 0.875rem;
+        }
+        .contract-boundary li {
+            font-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-20 header-bg text-white p-4 shadow-xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold flex items-center">
+                <i class="fas fa-hammer mr-3 text-secondary"></i> Projekt Dokumentációs Életciklus
+            </h1>
+            <p class="text-sm opacity-90 hidden sm:block">Mercarius sablontár</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 py-10 space-y-12">
+        
+        <section class="p-6 bg-white rounded-xl shadow-lg border-t-4 border-primary">
+            <h2 class="text-3xl font-bold mb-4 text-primary">Projekt célok és dokumentáció fontossága</h2>
+            <p class="text-lg leading-relaxed text-gray-700">
+                Az informatikai fejlesztési projekt(ek) elsődleges célja mindig egy <strong>hatékonyan működő, üzleti értéket teremtő rendszer előállítása</strong>, nem pedig a dokumentációk gyártása. Azonban a projekt sikere és a rendszer hosszú távú fenntarthatósága elengedhetetlenül függ a megfelelő kísérő dokumentumok létezésétől. Ezek a dokumentumok biztosítják, hogy a célok világosan rögzítésre kerüljenek, az igények teljesüljenek, a műszaki megoldás stabil, a megfelelőség garantált és az üzemeltetés zavartalan legyen.
+            </p>
+            <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-secondary rounded-lg">
+                <p class="font-bold text-lg text-yellow-800">Fókuszban:</p>
+                <p class="text-gray-700 mt-1">
+                    <strong class="font-bold">Folyamatos fejlődés és visszacsatolás lehetősége:</strong> Az iterációk révén a Megrendelő projekt közben rendszeres visszajelzéseket kap így segíthető elő hatékonyan, hogy a megrendelői igényekhez legjobban illeszkedő megoldás kerüljön kidolgozásra.
+                </p>
+            </div>
+        </section>
+
+        <section class="p-6 bg-white rounded-xl shadow-lg border-t-4 border-primary">
+            <h3 class="text-2xl font-bold mb-4 text-primary">Áttekintő projekt ciklus ábra (Szekvenciális + Iteratív)</h3>
+            <p class="text-sm text-gray-600 mb-6">A projekt stabil, jól meghatározott alapokra építve iteratív tervezési, megvalósítási és tesztelési szakaszokkal jut el a sikeres bevezetésig, majd projekt zárásig.</p>
+
+            <div class="flow-container">
+                <svg width="100%" height="250" viewBox="0 0 1150 250" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fcd34d;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#facc15;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#bfdbfe;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+                        </linearGradient>
+                         <linearGradient id="greenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#bbf7d0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4ade80;stop-opacity:1" />
+                        </linearGradient>
+                         <mask id="round-box" width="100%" height="100%" x="0" y="0">
+                            <rect width="100%" height="100%" rx="15" ry="15" fill="white" />
+                        </mask>
+                    </defs>
+
+                    <rect x="0" y="100" width="1150" height="50" fill="#f1f5f9" rx="8" ry="8"/>
+
+                    <!-- 1. Fázis: Definíció (100) -->
+                    <rect x="20" y="75" width="100" height="100" fill="url(#yellowGradient)" rx="10" ry="10" stroke="#b45309" stroke-width="2"/>
+                    <text x="70" y="110" font-family="Inter, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" class="svg-text-secondary">1. Definíció</text>
+                    <text x="70" y="135" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" class="svg-text-secondary">(PDD)</text>
+                    
+                    <path d="M120,125 L150,125" stroke="#facc15" stroke-width="4" fill="none" marker-end="url(#arrowhead_yellow)"/>
+                    <polygon points="150,125 140,121 140,129" fill="#facc15" />
+
+                    <!-- 2. Fázis: Igényspec. (130) -->
+                    <rect x="150" y="75" width="130" height="100" fill="url(#yellowGradient)" rx="10" ry="10" stroke="#b45309" stroke-width="2"/>
+                    <text x="215" y="110" font-family="Inter, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" class="svg-text-secondary">2. Igényspec.</text>
+                    <text x="215" y="135" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" class="svg-text-secondary">(BRS)</text>
+
+                    <path d="M280,125 L310,125" stroke="#005B9A" stroke-width="4" fill="none" marker-end="url(#arrowhead_blue)"/>
+                    <polygon points="310,125 300,121 300,129" fill="#005B9A" />
+                    
+                    <!-- ITERATÍV KERET -->
+                    <rect x="320" y="40" width="435" height="180" fill="#e2e8f0" rx="15" ry="15" mask="url(#round-box)"/>
+                    <text x="537.5" y="65" font-family="Inter, sans-serif" font-size="24" font-weight="extrabold" text-anchor="middle" fill="#71717A">ITERATÍV</text>
+
+                    <!-- 3. Fázis: Iteratív Tervezés (180) -->
+                    <rect x="335" y="75" width="180" height="100" fill="url(#blueGradient)" rx="10" ry="10" stroke="#005B9A" stroke-width="2"/>
+                    <text x="425" y="110" font-family="Inter, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" class="svg-text-secondary">3. Tervezés</text>
+                    <text x="425" y="135" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" class="svg-text-secondary">(FS, ATD, TS)</text>
+                    <text x="425" y="155" font-family="Inter, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" class="svg-text-primary">Tervezési Ciklus</text>
+                    
+                    <!-- Szerződéses határ -->
+                    <path d="M515,125 L540,125" stroke="#facc15" stroke-width="4" fill="none"/>
+                    <line x1="540" y1="75" x2="540" y2="175" stroke="#EF4444" stroke-width="4" stroke-dasharray="8, 4"/>
+
+                    <path d="M540,125 L565,125" stroke="#005B9A" stroke-width="4" fill="none" marker-end="url(#arrowhead_blue)"/>
+                    <polygon points="565,125 555,121 555,129" fill="#005B9A" />
+
+                    <!-- 4. Fázis: Megvalósítás (180) -->
+                    <rect x="580" y="75" width="180" height="100" fill="url(#greenGradient)" rx="10" ry="10" stroke="#16a34a" stroke-width="2"/>
+                    <text x="670" y="110" font-family="Inter, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" class="svg-text-secondary">4. Megvalósítás</text>
+                    <text x="670" y="135" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" class="svg-text-secondary">(Kód, Prototípusok)</text>
+                    <text x="670" y="155" font-family="Inter, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#047857">Kódolási Ciklus</text>
+                    
+                    <!-- Iteratív visszacsatolás a 3. és 4. között -->
+                    <path d="M740,175 C690,200 480,200 430,175" stroke="#005B9A" stroke-width="3" fill="none" stroke-dasharray="8,4"/>
+                    <polygon points="740,175 735,172 735,178" fill="#005B9A" />
+                    <text x="585" y="195" font-family="Inter, sans-serif" font-size="10" fill="#475569" text-anchor="middle">Finomhangolás</text>
+                    
+                    <path d="M760,125 L790,125" stroke="#facc15" stroke-width="4" fill="none" marker-end="url(#arrowhead_yellow)"/>
+                    <polygon points="790,125 780,121 780,129" fill="#facc15" />
+
+                    <!-- 5. Fázis: Minőségbiztosítás (180) -->
+                    <rect x="800" y="75" width="180" height="100" fill="url(#yellowGradient)" rx="10" ry="10" stroke="#b45309" stroke-width="2"/>
+                    <text x="890" y="110" font-family="Inter, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" class="svg-text-secondary">5. Minőségbiztosítás</text>
+                    <text x="890" y="135" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" class="svg-text-secondary">(QA, UAT)</text>
+
+                    <path d="M980,125 L1010,125" stroke="#facc15" stroke-width="4" fill="none" marker-end="url(#arrowhead_yellow)"/>
+                    <polygon points="1010,125 1000,121 1000,129" fill="#facc15" />
+
+                    <!-- 6. Fázis: Lezárás (100) -->
+                    <rect x="1020" y="75" width="100" height="100" fill="url(#yellowGradient)" rx="10" ry="10" stroke="#b45309" stroke-width="2"/>
+                    <text x="1070" y="110" font-family="Inter, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" class="svg-text-secondary">6. Bevezetés</text>
+                    <text x="1070" y="135" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" class="svg-text-secondary">(GO-LIVE)</text>
+                </svg>
+            </div>
+        </section>
+
+
+        
+        <!-- Fázisok Részletes Tartalma -->
+
+        <!-- 1. Fázis: Projekt Definíció -->
+        <section id="pd_pdd" class="pt-8 -mt-8">
+            <h2 class="text-3xl font-bold mb-6 text-primary border-b-2 border-primary pb-2"><i class="fas fa-scroll mr-2"></i> 1. Fázis: Előkészítés és Definíció</h2>
+            <div class="section-box">
+                <p class="text-lg font-semibold mb-4 text-primary">Dokumentum: Projekt Definíciós Dokumentum (PDD)</p>
+                <p class="mb-4 text-gray-700 font-bold">Célja: Miért és mit csinálunk? A projekt alapja, meghatározza a célt, a hatókört és a fő mérföldköveket. Ez a projekt alapvető iránytűje.</p>
+                
+                <div class="doc-detail-box">
+                    <h4>Elvárt Tartalom:</h4>
+                    <ul>
+                        <li><strong class="font-semibold">Projektcél és Indoklás (Business Case):</strong> A probléma/lehetőség és a várható üzleti érték (ROI) leírása.</li>
+                        <li><strong class="font-semibold">Határidők és Főbb Mérföldkövek:</strong> High-level ütemterv a kulcsfontosságú átadási pontokkal.</li>
+                        <li><strong class="font-semibold">Hatókör (Scope):</strong> Pontos határmeghatározás (IN/OUT of Scope) a Scope Creep elkerülése érdekében.</li>
+                        <li><strong class="font-semibold">Főbb Érintettek (Stakeholderek):</strong> A projektben résztvevő kulcsszereplők, felelősségi körük (pl. Szponzor, Projektvezető, Üzleti Tulajdonos).</li>
+                        <li><strong class="font-semibold">Kockázatösszefoglaló:</strong> Az előzetesen azonosított főbb kockázatok (pl. erőforráshiány, technológiai bizonytalanság).</li>
+                        <li><strong class="font-semibold">Jóváhagyási Követelmények:</strong> A projekt hivatalos eredménytermékeit elfogadó jóváhagyások.</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <p class="font-bold text-yellow-800 mb-2">PÉLDA: PDD (Projekt Definíciós Dokumentum)</p>
+                        <p class="font-bold block mt-2">Projekt Cél:</p>
+                        <p class="text-gray-700 ml-2">Olyan centralizált flottamenedzsment platform bevezetése (<strong class="font-semibold">MerCore</strong>), amely a manuális adminisztrációt jelentősen csökkenti, integráltan képes együttműködni a <strong class="font-semibold"> MOL Move applikációval </strong>  és a jövőben képes lesz telematikai adatok fogadására is. <strong class="font-semibold"> Hatékonyan támogatja a Mercarius reaktív flottakezelőből proaktív mobilitás szolgáltatóvá (PMSZ) válását. 
+<br> Mérföldkő:</strong> BRS Jóváhagyás: 2026. Q1. Várható Élesítés: 2027. Q1.</p>
+                        <p class="font-bold block mt-2">Főbb Korlátok (Constraints):</p>
+                        <ul class="list-disc list-inside ml-4 text-gray-700">
+                            <li>Több kapcsolódó rendszer (<strong class="font-semibold">pl. CRM, MOL Move</strong>) fejlesztésére nincs direkt ráhatásunk, az integráció a külső rendszerek ütemezéséhez igazodik.</li>
+                            <li>A projekt során a belső folyamatszakértői kapacitás <strong class="font-semibold">kiépítése (nevelése)</strong> szükséges, ami bizonytalansági tényező.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Fázis: Üzleti Követelmény (BRS) -->
+        <section id="brs_phase" class="pt-8 -mt-8">
+            <h2 class="text-3xl font-bold mb-6 text-primary border-b-2 border-primary pb-2"><i class="fas fa-sitemap mr-2"></i> 2. Fázis: Üzleti Igényspecifikáció (BRS)</h2>
+            <div class="section-box">
+                <p class="text-lg font-semibold mb-4 text-primary">Dokumentum: Üzleti Igényspecifikáció (BRS)</p>
+                <p class="mb-4 text-gray-700 font-bold">Célja: Mit vár el az Üzlet? Részletesen leírja az üzleti igényeket és problémákat, különös tekintettel a digitális elvárásokra. Ez a projekt üzleti értékének stabil alapja.</p>
+                
+                <div class="doc-detail-box">
+                    <h4>Alapvető BRS Tartalom:</h4>
+                    <ul>
+                        <li><strong class="font-semibold">Vezetői Összefoglaló (Executive Summary):</strong> A projekt céljainak és javasolt megoldásainak tömör bemutatása.</li>
+                        <li><strong class="font-semibold">Üzleti Motivációk és Jogi Elemzés:</strong> A fejlesztést indokoló stratégiai célok és a kötelező jogszabályi megfelelőségek.</li>
+                        <li><strong class="font-semibold">Funkcionális Követelmények:</strong> A rendszer elvárt képességei üzleti nyelven (pl. User Story-k).</li>
+                        <li><strong class="font-semibold">Nem-funkcionális Követelmények:</strong> Minőségi elvárások (pl. Rendelkezésre állás 99,5%, Válaszidő < 5 másodperc).</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <p class="font-bold text-yellow-800 mb-3 text-lg border-b border-yellow-700 pb-2">PÉLDA: BRS (Üzleti Igényspecifikáció) - Alapkövetelmények</p>
+                        <ul class="list-disc list-inside space-y-4 ml-4">
+                            <li>
+                                <p class="font-bold text-gray-800">1. Felhasználói Életút (Customer Journey) és UX:</p>
+                                <ul class="list-square list-inside ml-6 mt-1 space-y-1 text-gray-700">
+                                    <li>Az ügyfél, flottamenedzser, és kapcsolattartó életút mentén a működés bemutatása.</li>
+                                    <li>Omnichannel támogatás és "mobil first" megközelítés érvényesítése a tervezés során.</li>
+                                    <strong class="font-semibold">Példa (Omnichannel/UX):</strong> A rendszernek automatikusan fel kell ismernie a bejelentkező felhasználó eszközét (mobil/desktop), és a felületnek (responsive design) biztosítania kell a hibamentes folytatását a folyamatnak (pl. kárbejelentés) csatornaváltás (mobilról desktopra) esetén is.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p class="font-bold text-gray-800">2. Technológiai Elvárások és Integráció:</p>
+                                <ul class="list-square list-inside ml-6 mt-1 space-y-1 text-gray-700">
+                                    <li><strong class="font-semibold">Szabványosítás</strong>, skálázhatóság, valamint az ML/AI komponensek folyamatos támogatása.</li>
+                                    <li>Integrációs követelmények egyéb rendszerekkel (pl. ERP, CRM, DÁP) szabványos API-k, webhookok használatával.</li>
+                                    <li>Rugalmas és moduláris architektúra elvárása.</li>
+                                    <strong class="font-semibold">Példa (AI/RPA/SLA):</strong> Az új számlabeolvasó folyamatban a rendszer <strong class="font-semibold">80%-os megbízhatósággal</strong> (AI-modell confidence level) kell, hogy képes legyen automatikusan azonosítani és kategóriába sorolni a bizonylattípusokat. A kritikus üzleti tranzakciók (pl. bérlés indítása) garantált válaszideje <strong class="font-semibold">nem haladhatja meg a 2 másodpercet</strong> (SLA).</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p class="font-bold text-gray-800">3. Jogi Megfelelőség és Biztonság:</p>
+                                <ul class="list-square list-inside ml-6 mt-1 space-y-1 text-gray-700">
+                                    <li>Adatvédelmi megfelelőség (<strong class="font-semibold">GDPR</strong> és nemzetközi szabályozások, pl. CCPA, HIPAA) biztosítása.</li>
+                                    <li><strong class="font-semibold">Akadálymentességi (Accessibility)</strong> követelmények beépítése.</li>
+                                    <li>Hozzáférés-kezelés, titkosítás, naplózás és incidenskezelés részletes előírásai.</li>
+                                    <strong class="font-semibold">Példa (GDPR/Akadálymentesség):</strong> Biztosítani kell az 'Adatok Törlése' funkció automatizált végrehajtását az adatkezelési idő lejártakor. Az adminisztrációs felületnek felelnie kell a <strong class="font-semibold">WCAG 2.1 AA</strong> szintű akadálymentességi szabványnak (pl. billentyűzet általi navigáció).</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p class="font-bold text-gray-800">4. Lokalizáció és Sablonkezelés:</p>
+                                <ul class="list-square list-inside ml-6 mt-1 space-y-1 text-gray-700">
+                                    <li>Több nyelv és több valuta kezelése; akár egy képernyőn egyszerre két nyelv megjelenítésének lehetősége.</li>
+                                    <li>Lokalizáció kiterjesztése a helyi jogi és adózási specifikumokra.</li>
+                                    <li>Sablonkezelés verziókövetéssel és automatikus auditálással.</li>
+                                    <strong class="font-semibold">Példa (Lokalizáció/Sablonkezelés):</strong> A felhasználói felületen biztosítani kell egy váltó opciót, amely lehetővé teszi a magyar és szlovák nyelvű tartalom (pl. szerződés adatok) akár egyidejű, osztott képernyős megjelenítését. A szerződéses sablonok minden módosítása automatikusan bekerül a verziókövető rendszerbe, a módosító és a jóváhagyó nevével auditálva.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p class="font-bold block mt-4">Link a BRS részletes tartalmához:</p>
+                        <div class="link-container">
+                             <a href="brs.html" target="_blank"><i class="fas fa-file-alt mr-2"></i> A BRS tartalmi útmutatója további példákkal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- 3. Fázis: Tervezés (FS, ATD, TS) -->
+        <section id="design_phase" class="pt-8 -mt-8">
+            <h2 class="text-3xl font-bold mb-6 text-primary border-b-2 border-primary pb-2"><i class="fas fa-laptop-code mr-2"></i> 3. Fázis: Tervezés és Specifikáció (Iteratív) </h2>
+            <div class="section-box">
+                <p class="text-lg font-semibold mb-4 text-primary">Kimeneti Dokumentumok: Funkcionális és Technikai Specifikációk (FS, ATD, TS)</p>
+ 
+                    A <strong class="text-primary">jelenlegi szerződés keretében</strong> ez az iteratív szakasz a Rendszer Terv dokumentációk előállítására fókuszál. A Funkcionális (FS) és Technikai Specifikációk (TS) logikai egységekben (modulok, user story-k) készülnek el, a BRS-ben rögzített igények alapján.
+                </p>
+           
+                    Iteratív Finomhangolás Elve: A Rendszer Terv átadását követően a <strong class="font-semibold">későbbi Megvalósítási Fázis</strong> során a kódolással szinkronban folyamatosan finomhangolhatóak a specifikációk. Ez a rugalmas adaptáció kizárólag a BRS-ben rögzített kereteken belül lehetséges. Az alapvető üzleti igényeket (BRS) érintő változások (Scope Creep) esetén <strong>Change Request (CR)</strong> kezdeményezése kötelező. 
+                </p>
+                <br>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Funkcionális Specifikáció (FS) -->
+                    <div>
+                        <p class="text-lg font-semibold mb-3 text-primary border-b border-gray-200 pb-2"><i class="fas fa-list-check mr-2"></i> Funkcionális Specifikáció (FS)</p>
+                        <p class="text-sm text-gray-600 mb-4">Mit fog tudni a rendszer? Leírja a rendszer összes funkcióját, beleértve a felhasználói interakciókat. A "mit" műszaki lefordítása.</p>
+
+                        <div class="doc-detail-box !p-4 !m-0 !shadow-none !border-none">
+                            <ul>
+                                <li><strong class="font-semibold">Részletes Folyamatleírások (BPMN):</strong> A végfelhasználói munkafolyamatok pontos, lépésről lépésre történő leírása.</li>
+                                <li><strong class="font-semibold">Használati Esetek (Use Case/User Story):</strong> Az aktor, az akció és a várt eredmény (GIVEN, WHEN, THEN formátum).</li>
+                                <li><strong class="font-semibold">Felület Tervek (Wireframe/Mockup):</strong> A felhasználói felület logikai elrendezése.</li>
+                                <li><strong class="font-semibold">Adattérkép:</strong> A folyamathoz tartozó adatok (mezőnév, formátum, ellenőrzés) részletezése.</li>
+                            </ul>
+                            
+                            <div class="example-box !mt-4">
+                                <p class="font-bold text-yellow-800 mb-2">PÉLDA: FS (Funkcionális Specifikáció)</p>
+                                <p class="font-bold block mt-2">User Story (Kárrendezés):</p>
+                                <p class="text-gray-700 ml-2"><strong class="font-semibold">MINT</strong> Flottamenedzser, <strong class="font-semibold">SZERETNÉM</strong>, ha új kárbejelentés rögzítésekor a rendszer automatikusan ellenőrizné, hogy a jármű áll-e még garanciális vagy lízingfedezet alatt, <strong class="font-semibold">AZÉRT</strong>, hogy azonnali döntést hozhassak a kárfeldolgozás útjáról.</p>
+                                <p class="font-bold block mt-2">Elfogadási Feltétel (GIVEN/WHEN/THEN):</p>
+                                <p class="text-gray-700 ml-2"><strong class="font-semibold">GIVEN</strong> A flottamenedzser elindítja a Kárbejelentési űrlapot.<br><strong class="font-semibold">WHEN</strong> beírja az alvázszámot.<br><strong class="font-semibold">THEN</strong> a rendszer a mező mellett megjelenít egy "Lízing / Garancia érvényes" zöld ikont.</p>
+                            </div>
+                            
+                            <div class="link-container">
+                                <a href="fs.html" target="_blank"><i class="fas fa-file-alt mr-2"></i> Funkcionális Specifikáció tartalmi útmutatója</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Architektúra Tervezés és Technikai Specifikáció (ATD/TS) -->
+                    <div>
+                        <p class="text-lg font-semibold mb-3 text-primary border-b border-gray-200 pb-2"><i class="fas fa-microchip mr-2"></i> Architektúra/Technikai Specifikáció (ATD/TS)</p>
+                        <p class="text-sm text-gray-600 mb-4">Hogyan épül fel a rendszer? Leírja a műszaki architektúrát, technológiai stack-et, adatbázis-kezelést és integrációkat.</p>
+
+                        <div class="doc-detail-box !p-4 !m-0 !shadow-none !border-none">
+                            <ul>
+                                <li><strong class="font-semibold">Architektúra Tervezés (ATD):</strong> A rendszer rétegződésének bemutatása (pl. Microservices, B2B/B2C rétegek) és a technológiai stack (pl. Backend: Java Spring, Frontend: React).</li>
+                                <li><strong class="font-semibold">Fizikai Adatmodell:</strong> Tábla, oszlop, adattípus és index definíciók.</li>
+                                <li><strong class="font-semibold">Interfészek (API Specifikáció):</strong> Külső rendszerekkel való kommunikáció protokolljai (pl. REST API /flotta/jarmu/status GET metódus).</li>
+                                <li><strong class="font-semibold">Biztonsági Implementáció:</strong> Adattitkosítás, jogosultságkezelési modell (pl. RBAC) műszaki terve.</li>
+                            </ul>
+                            
+                            <div class="example-box !mt-4">
+                                <p class="font-bold text-yellow-800 mb-2">PÉLDA: ATD/TS (Technikai Specifikáció)</p>
+                                <p class="font-bold block mt-2">Architektúra és Adatvédelem:</p>
+                                <p class="text-gray-700 ml-2">A <strong class="font-semibold">MerCore</strong> rendszer Mikroszervíz alapú architektúrát használ Docker konténerizációval. Az érzékeny személyes adatok (pl. `drivers.phone_number`) tárolása <strong class="font-semibold"> hashelt</strong> formában történik (technikai implementáció a BRS-beli jogi követelményhez).</p>
+                                <p class="font-bold block mt-2">Integrációs Terv (TS):</p>
+                                <p class="text-gray-700 ml-2">A <strong class="font-semibold">CODA (Unit4)</strong> rendszerrel történő szinkronizáció <strong class="font-semibold">REST API-n</strong> keresztül, <strong class="font-semibold">JWT</strong> (JSON Web Token) hitelesítéssel, <strong class="font-semibold"> eseményvezérelten </strong></p>
+                            </div>
+
+                            <div class="link-container">
+                                <a href="ts.html" target="_blank"><i class="fas fa-code mr-2"></i> Technikai Specifikáció tartalmi útmutatója</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<br>
+        <!-- Szerződéses Határ Szekció a 3. és 4. fázis között -->
+        <div class="mb-10"></div>
+        <section id="contract_boundary" class="pt-8 -mt-8 contract-boundary space-y-2">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-exclamation-triangle text-xl text-red-600"></i>
+                <h2 class="font-extrabold text-red-700">SZERZŐDÉSES HATÁR </h2>
+            </div>
+            <p class="text-xs text-gray-800 font-semibold border-b border-red-300 pb-1">
+                A jelenleg megkötött szerződéses kötelezettség a <strong class="text-red-600">3. Fázis (Iteratív Tervezés) végéig</strong> tart, a következő átadási tartalommal:
+            </p>
+            <h4 class="font-bold text-red-700 ml-4">I.2. A megvalósuló együttműködés során az alábbi dokumentációk kerülnek elkészítésre (együttesen „Rendszer Terv”):</h4>
+            <ul class="list-disc list-inside space-y-1 ml-8 text-gray-700 text-xs">
+                <li><strong class="font-semibold">Részletes üzleti folyamati dokumentáció</strong> a Rendszer folyamatok megvalósításához.</li>
+                <li><strong class="font-semibold">Részletes funkcionális rendszer dokumentáció</strong> a Rendszerben elvárt üzleti működés, logikai megvalósításához.</li>
+                <li><strong class="font-semibold">Részletes technológia rendszerterv (fizikai)</strong> elkészítése a Vállalkozó új keretrendszerében történő megvalósításhoz illeszkedve.</li>
+                <li><strong class="font-semibold">Részletes integrációs és szolgáltatás alapú interfész tervek</strong> a Rendszer tervezése során rögzített, a digitális folyamati elvárásokhoz illeszkedő rendszer kapcsolatokra.</li>
+            </ul>
+            <div class="mt-2 p-2 bg-red-100 rounded-lg">
+                <p class="text-xs text-red-800 font-bold">
+                    A további fázisok (Megvalósítás, Minőségbiztosítás, Bevezetés és Lezárás) elvégzéséhez új vagy kiterjesztett szerződés szükséges.
+                </p>
+            </div>
+        </section>
+        <!-- END: Szerződéses Határ Szekció -->
+       <br> 
+        <!-- 4. FÁZIS: MEGVALÓSÍTÁS -->
+        <div class="mb-8"></div>
+        <section id="implementation_phase" class="pt-8 -mt-8">
+            <h2 class="text-3xl font-bold mb-6 text-primary border-b-2 border-primary pb-2"><i class="fas fa-cogs mr-2"></i> 4. Fázis: Megvalósítás (Iteratív)</h2>
+            <div class="section-box">
+                <p class="text-lg font-semibold mb-4 text-primary">Kimeneti Termék: Rendszerprototípusok és Működő Rendszer (Későbbi Szerződés Tárgya)</p>
+                <p class="mb-4 text-gray-700">
+                    Az iteratív módon előállított funkcionális és technikai specifikációk az alapját képezik – a szintén iteratív - megvalósítási fázisnak, amelynek célja, hogy a tervezett rendszert lépésről lépésre életre keltse. <strong>Az iteratív megközelítés különösen nagy hangsúlyt fektet a rugalmasságra és a folyamatos visszacsatolásra, ami lehetővé teszi, hogy a rendszerfejlesztés pontosan igazodjon a megrendelő elvárásaihoz és az üzleti célokhoz.</strong> Mivel a fejlesztési folyamat során a funkcionális és technikai specifikációk is folyamatosan finomodhatnak, a megvalósítás is ennek megfelelően alkalmazkodik az új igényekhez vagy módosításokhoz.
+                </p>
+                <p class="mb-4 text-gray-700">
+                    Ennek megfelelően a megvalósítás során kulcsszerepet kap a <strong class="font-semibold text-primary">prototipizálás</strong>, amely egy köztes, de kézzelfogható állapotot kínál a fejlesztési folyamat különböző pontjain. A prototípusok segítenek abban, hogy a megrendelő folyamatosan ellenőrizni tudja a rendszer fejlődését, visszajelzést adhasson, és az esetleges módosítási igényeket még a végleges fejlesztés előtt beépíthessék. Az ilyen rendszeres visszamutatás a Megrendelő számára biztosítékot ad arra, hogy a megvalósítás az elvárásainak megfelelően halad, és hogy a végső termék valóban megfelel majd az igényeinek.
+                </p>
+
+                <div class="doc-detail-box">
+                    <h4>Alapvető Megvalósítási Eredmények:</h4>
+                    <ul>
+                        <li><strong class="font-semibold">Működő rendszer:</strong> A modulok, integrációk és funkciók implementálása.</li>
+                        <li><strong class="font-semibold">Infrastruktúra kialakítása:</strong> A szükséges környezetek kialakítása.</li>
+                        <li><strong class="font-semibold">Prototípusok/Demók:</strong> Rendszeres, mérföldkőhöz kötött demók a Megrendelő felé a haladás ellenőrzésére.</li>
+                        <li><strong class="font-semibold">Unit és integrációs tesztek:</strong> A fejlesztői minőségbiztosítás alapelemei.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 5. FÁZIS: Minőség és Megvalósítás (Tesztelés) -->
+        <section id="qa_phase" class="pt-8 -mt-8">
+            <h2 class="text-3xl font-bold mb-6 text-primary border-b-2 border-primary pb-2"><i class="fas fa-check-double mr-2"></i> 5. Fázis: Minőségbiztosítás és Tesztelés</h2>
+            <div class="section-box">
+                <p class="text-lg font-semibold mb-4 text-primary">Dokumentum: Tesztelési Koncepció és Tesztelési Forgatókönyvek</p>
+                <p class="mb-4 text-gray-700 font-bold">Célja: Hogyan biztosítjuk a minőséget? Definiálja a tesztelési stratégiát és a teszteseteket a funkciók és a rendszer minőségének ellenőrzésére. A Tesztelési Koncepciót a Követelmény meghatározási szakaszban kell elkezdeni!</p>
+                
+                <div class="doc-detail-box">
+                    <h4>Elvárt Tartalom:</h4>
+                    <ul>
+                        <li><strong class="font-semibold">Tesztelés Hatóköre és Tárgya:</strong> Pontos leírás a tesztelendő és *nem* tesztelendő funkciókról (indoklással).</li>
+                        <li><strong class="font-semibold">Teszttípusok:</strong> Funkcionális, Integrációs, Regressziós, Terheléses (Load Test), <strong class="font-semibold">UAT</strong> (Felhasználói elfogadási teszt) definíciója.</li>
+                        <li><strong class="font-semibold">Teszt Forgatókönyvek:</strong> Részletes, lépésről lépésre szóló tesztesetek az elvárt eredménnyel.</li>
+                        <li><strong class="font-semibold">Elfogadási és Belépési Kritériumok (Gate-ek):</strong> Feltételek, amelyek teljesülése esetén lehet továbblépni a következő fázisba (pl. 0 kritikus hiba).</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <p class="font-bold text-yellow-800 mb-2">PÉLDA: Tesztelési Koncepció</p>
+                        <p class="font-bold block mt-2">Teszt Forgatókönyv (Adattörlés):</p>
+                        <p class="text-gray-700 ml-2"><strong class="font-semibold">Teszteset:</strong> Ellenőrzés: Az automatikus adattörlés.<br><strong class="font-semibold">Lépések:</strong> 1. Rögzítsen egy szerződést lejárt `retention_date`-tel. 2. Várja meg a napi batch futtatást. 3. Ellenőrizze az adatbázisban, hogy a személyes adatok mezői (pl. név, telefon) <strong class="font-semibold">fizikailag is törlődtek</strong> (NULL vagy anonymizált érték).<br><strong class="font-semibold">Elvárt Eredmény:</strong> A kritikus mezők visszaállíthatatlanul törlődnek, de a kapcsolódó számlázási tranzakciók (nem-személyes adatok) megmaradnak.</p>
+                        <p class="font-bold block mt-2">Terheléses Teszt Elvárás:</p>
+                        <p class="text-gray-700 ml-2">Szimulált <strong class="font-semibold">200 egyidejű felhasználó</strong> mellett az azonosító alapú keresés válaszideje <strong class="font-semibold">nem haladhatja meg az 5 másodpercet</strong> (BRS Nem-funkcionális igény igazolása).</p>
+                    </div>
+
+                    <div class="link-container">
+                        <a href="tc.html" target="_blank"><i class="fas fa-vial mr-2"></i> Tesztelési Koncepció tartalmi útmutatója</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. FÁZIS: Bevezetés és Lezárás -->
+        <section id="closure_phase" class="pt-8 -mt-8">
+            <h2 class="text-3xl font-bold mb-6 text-primary border-b-2 border-primary pb-2"><i class="fas fa-rocket mr-2"></i> 6. Fázis: Bevezetés és Lezárás</h2>
+            <div class="section-box">
+                <p class="text-lg font-semibold mb-4 text-primary">Kimeneti Dokumentumok: Bevezetési és migrációs tervek, Felhasználói és Üzemeltetési Kézikönyvek</p>
+                <p class="mb-4 text-gray-700 font-bold">A lezárási szakasz, amely a stabil és biztonságos éles üzem megkezdését és a projekt formális átadását foglalja magába.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Bal oldal: Bevezetési Dokumentumok -->
+                    <div>
+                        <p class="text-lg font-semibold mb-3 text-primary border-b border-gray-200 pb-2"><i class="fas fa-chart-line mr-2"></i> Bevezetési és Üzemeltetési Tervek</p>
+                        
+                        <div class="doc-detail-box !p-4 !m-0 !shadow-none !border-none space-y-4">
+                            <!-- Cut-over Terv -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">1. Cut-over Terv</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Kockázatmentes élesbe állítás. <strong class="font-semibold">Tartalom:</strong> Az éles üzembe helyezés lépései, felelősségei, az átállás menetrendje (pl. péntek 20:00 - vasárnap 06:00 közötti ablakban). <strong class="font-semibold">Példa:</strong> A DNS átírás (Go-Live) <strong class="font-semibold">előtt</strong> ellenőrizni kell az összes függő szolgáltatás (pl. SSO) elérhetőségét.</p>
+                            </div>
+                            <!-- Migrációs Terv -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">2. Migrációs Terv</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Adatok zavartalan áttelepítése. <strong class="font-semibold">Tartalom:</strong> Részletes terv az adatok és/vagy rendszerek biztonságos áttelepítésére (mely adatok, forrás, cél, validációs lépések). <strong class="font-semibold">Példa:</strong> A 10 évnél régebbi szerződéses adatok <strong class="font-semibold">csak archiválásra kerülnek</strong>, nem kerülnek be az új <strong class="font-semibold">MerCore</strong> adatbázisba.</p>
+                            </div>
+                            <!-- DRP / BCP Terv -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">3. Katasztrófa-helyreállítási (DRP) / Üzletmenet-folytonossági (BCP) Terv</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Vészhelyzeti forgatókönyvek. <strong class="font-semibold">Tartalom:</strong> Gyors helyreállítási eljárások (DRP), üzleti folyamatok fenntartása IT kiesés esetén (BCP). <strong class="font-semibold">Példa:</strong> <strong class="font-semibold">RTO (Recovery Time Objective)</strong>: 4 óra; <strong class="font-semibold">RPO (Recovery Point Objective)</strong>: 30 perc. A kritikus üzleti adatok offline rögzítésének eljárása.</p>
+                            </div>
+                            <!-- Üzemeltetési Kézikönyvek -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">4. Üzemeltetési Kézikönyvek (Runbook)</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Rendszerfenntartás. <strong class="font-semibold">Tartalom:</strong> Napi működtetési és karbantartási eljárások, hibakezelés (Incident Management) lépései, monitoring és riasztási beállítások (pl. Grafana/Prometheus dashboardok).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jobb oldal: Dokumentáció és Képzés -->
+                    <div>
+                        <p class="text-lg font-semibold mb-3 text-primary border-b border-gray-200 pb-2"><i class="fas fa-user-friends mr-2"></i> Képzés és Jogi Megfelelőség</p>
+                        
+                        <div class="doc-detail-box !p-4 !m-0 !shadow-none !border-none space-y-4">
+                            <!-- Felhasználói Kézikönyvek -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">1. Felhasználói kézikönyvek</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Végfelhasználói segítség. <strong class="font-semibold">Tartalom:</strong> Lépésről lépésre bemutatja a rendszer hatékony és biztonságos használatát (képernyőfotók, folyamatútmutatók). <strong class="font-semibold">Példa:</strong> Útmutató az új felületen a havi flottaösszesítő riport letöltéséhez és paraméterezéséhez.</p>
+                            </div>
+                            <!-- Oktatási Terv -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">2. Oktatási Terv</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Tudás átadása. <strong class="font-semibold">Tartalom:</strong> Részletezi a felhasználók és üzemeltetők képzését (célcsoportok, tematika, oktatási módszer, ütemezés). <strong class="font-semibold">Példa:</strong> A Flottamenedzserék <strong class="font-semibold">4 órás UAT/EDU síkon</strong> történő gyakorlati képzése a Go-Live előtt 2 héttel.</p>
+                            </div>
+                            <!-- Jogi Megfelelőségi és Biztonsági Terv -->
+                            <div class="border p-3 rounded-lg bg-white">
+                                <h5 class="font-bold text-gray-800">3. Jogi Megfelelőségi és Biztonsági Terv (BCT/GCT)</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Rendszer- és adatvédelem. <strong class="font-semibold">Tartalom:</strong> Összevont terv a GDPR megfelelőség, adatvédelem, kockázatkezelés, hitelesítés (SSO), jogosultságkezelés és incidenskezelés fedezésére. <strong class="font-semibold">Példa:</strong> A felhasználói adatok elérése a naplókban csak <strong class="font-semibold">anonimizáltan</strong> történhet (GDPR), kivéve a <strong class="font-semibold">Biztonsági Esemény Napló</strong> vizsgálata esetén.</p>
+                            </div>
+                            
+                            <!-- Projekt Zárójelentés (Implicit dokumentum) -->
+                            <div class="border p-3 rounded-lg bg-gray-100">
+                                <h5 class="font-bold text-gray-800">4. Projekt Zárójelentés (Lezárási Pont)</h5>
+                                <p class="text-xs text-gray-600"><strong class="font-semibold">Cél:</strong> Formális lezárás. <strong class="font-semibold">Tartalom:</strong> Összefoglalja a projekt teljesítését, a KPI-k elérését (vagy el nem érését), a tanulságokat és a hátralévő feladatok listáját. A Zárójelentés formális jóváhagyásával zárul a projekt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

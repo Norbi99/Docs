@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funkcionális Specifikáció Tartalmi Útmutató</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --primary-color: #005B9A; 
+            --primary-light: #e6f0f7;
+            --example-bg: #fffbe6;
+            --example-border: #facc15;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .primary-color {
+            color: var(--primary-color);
+        }
+        .primary-border {
+            border-left: 4px solid var(--primary-color); 
+        }
+        .section-header {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        .nav-link.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .nav-link:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: calc(100vh - 80px);
+            padding-top: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-container {
+                grid-template-columns: 280px 1fr;
+                gap: 2rem;
+                padding-top: 2rem;
+            }
+            .content-pane {
+                max-height: calc(100vh - 120px);
+                overflow-y: auto;
+                padding-right: 1rem;
+            }
+            .menu-pane {
+                position: sticky;
+                top: 80px;
+                height: fit-content;
+            }
+        }
+        .wireframe-container {
+            border: 2px solid #333;
+            border-radius: 1rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 1rem auto;
+        }
+        .wireframe-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            text-align: center;
+            font-weight: bold;
+            margin: -1rem -1rem 1rem -1rem;
+        }
+        .wireframe-element {
+            background-color: #ccc;
+            border: 1px solid #999;
+            border-radius: 0.25rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+        .wireframe-input {
+            background-color: white;
+            border: 1px solid #999;
+            height: 2.5rem;
+        }
+        .wireframe-button {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Felső (Fix) Navigációs Sáv -->
+    <header class="sticky top-0 z-20 bg-white shadow-md p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="Projekt_dokumentaciok.html" class="flex items-center space-x-1 text-sm font-medium text-gray-500 hover:text-gray-700 transition duration-150 p-2 rounded-lg bg-gray-100 hover:bg-gray-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="hidden sm:inline">Vissza</span>
+                </a>
+            <h1 class="text-2xl font-bold primary-color">FS Tartalmi útmutató</h1>
+            <div class="flex items-center space-x-3">
+                <p class="text-sm text-gray-600 hidden sm:block">Mercarius sablontár</p>
+                <div class="w-8 h-8 bg-gray-500 text-white flex items-center justify-center text-xs font-bold rounded-md">FS</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 content-container">
+        
+        <!-- Bal Oldali Navigáció (Menü) -->
+        <aside class="menu-pane hidden lg:block">
+            <div id="navigation-menu" class="p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+                <h2 class="text-lg font-semibold mb-3 text-gray-700">Tartalomjegyzék</h2>
+                <nav class="space-y-1 text-sm">
+                    <a href="#" data-section="fs_intro" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">1. Bevezetés és Csoportosítás</a>
+                    <a href="#" data-section="function_list" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">2. Funkcionális Követelmények Lista</a>
+                    <a href="#" data-section="use_case" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">3. Folyamat/Használati Eset Leírása</a>
+                    <a href="#" data-section="process_steps" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">4. Folyamatlépések Részletezése</a>
+                    
+                    <a href="#" data-section="wireframes" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">5. Kulcsképernyők (Wireframes)</a>
+
+                    <a href="#" data-section="data_map" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">6. Adattérkép (Folyamat Adatok)</a>
+                    
+                    <a href="#" data-section="other_req" class="nav-link block p-2 rounded-lg text-gray-700 transition duration-150">7. Egyéb Működési Követelmények</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Jobb Oldali Fő Tartalom -->
+        <section id="content-pane" class="lg:col-span-1 space-y-8 content-pane bg-white rounded-xl shadow-lg p-6 lg:p-8">
+            
+            <h2 class="text-3xl font-extrabold primary-color mb-6">Funkcionális Specifikáció (FS) Célja</h2>
+            <div id="general_info" class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-8">
+                <p class="text-lg leading-relaxed text-gray-700">
+                    A Funkcionális specifikációk (FS) a módszertan központi elemei, melyek biztosítják, hogy a fejlesztési folyamat jól meghatározott alapokra épüljön. Pontosan definiálják a rendszer által elvégzendő feladatokat, szolgáltatásokat és a működés logikai modelljét.
+                </p>
+                <div class="mt-4 p-4 bg-green-50 rounded-xl border border-green-300 shadow-md text-sm text-green-800">
+                    <p class="font-bold mb-2">Fontos módszertani szempont:</p>
+                    <p>Az FS a Követelményspecifikációra (BRS) épül, de a kidolgozása történhet rugalmasan, kisebb logikai egységek szerint csoportosítva. Ezt az iteratív megközelítést alkalmazva lehetőség van a tartalom folyamatos finomítására a fejlesztés során.</p>
+                </div>
+            </div>
+
+            <!-- 1. Bevezetés és Csoportosítás -->
+            <div id="fs_intro" data-section-content class="section-content space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">1. Bevezetés és Csoportosítás</h3>
+                <p class="text-gray-600">A fejezet meghatározza az adott FS dokumentum hatókörét, és bemutatja, milyen logikai egység vagy folyamat szerint történt a funkciók csoportosítása.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Azonosítás és Verzió:</strong> Mely BRS követelményre/modulra vonatkozik.</li>
+                    <li><strong class="font-bold">Csoportosítási Logika:</strong>
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Funkcióalapú:</strong> Pl. Regisztráció, Adatmódosítás, Riportkészítés.</li>
+                            <li><strong class="font-bold">Felhasználói Szerepkörök Szerinti:</strong> Pl. Adminisztrátor funkciói, Flottamenedzser funkciói.</li>
+                            <li><strong class="font-bold">Üzleti Folyamatok Mentén:</strong> Pl. Gépjármű átadás-átvételi folyamat, Kárrendezési folyamat.</li>
+                            <li><strong class="font-bold">Moduláris/Technológiai:</strong> Pl. Adatbázis-kezelési modul, Webes interfész modul.</li>
+                        </ul>
+                    </li>
+                    <li><strong class="font-bold">Folyamat Központú Szemlélet:</strong> Kiemelés, hogy a részletes leírások a Folyamat-Adat-Szereplők mentén kerülnek kidolgozásra. </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Csoportosítás</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">FS Hatóköre:</span> A dokumentum a <strong class="font-bold">MerCore</strong> rendszer <strong class="font-bold">Kár- és Szerviz Eseménykezelési Moduljára</strong> vonatkozik.</li>
+                        <li><span class="font-bold">Csoportosítás:</span> Üzleti Folyamatok Mentén. Két fő fejezet: <strong>Kárbejelentési Folyamat</strong> és <strong>Szerviz Időpontfoglalási Folyamat</strong>.</li>
+                        <li><span class="font-bold">Kapcsolat a BRS-sel:</span> BRS ... pont (Eseménykezelés) és ... pont (Rendelkezésre állás) részletezése.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. Funkcionális Követelmények Lista -->
+            <div id="function_list" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">2. Funkcionális Követelmények Listája</h3>
+                <p class="text-gray-600">A rendszer által elvégzendő feladatok és szolgáltatások tételes listája, a hozzájuk tartozó bemenetekkel, kimenetekkel, szerepkörökkel és működési követelményekkel.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Funkcionális Követelmények (Tételesen):</strong> Részletes lista (BRS-ből származó) funkciókról. Pl. F-101: Felhasználói regisztráció kezelése.</li>
+                    <li><strong class="font-bold">Bemenetek és Kimenetek:</strong> A rendszer által fogadott (pl. Felhasználói űrlap) és produkált (pl. Rendelkezésre állási jelentés) adatok.</li>
+                    <li><strong class="font-bold">Adatok Átalakítása és Feldolgozása:</strong> Az adatok tárolásának, frissítésének és biztonságos kezelésének módja.</li>
+                    <li><strong class="font-bold">Felhasználói Szerepkörök és Jogosultságok:</strong> A rendszer különböző funkcióihoz kapcsolódó jogosultsági mátrix logikai szinten.</li>
+                    <li><strong class="font-bold">Működési Követelmények:</strong> Teljesítményre, rendelkezésre állásra, adatbiztonságra vonatkozó elvárások (BRS 7. pont logikai áttörése).</li>
+                    <li><strong class="font-bold">Rendszerinterakciók:</strong> Hogyan kapcsolódik a rendszer más rendszerekhez az adatok átadása céljából (logikai szinten, pl. <strong>CODA (Unit4)</strong> felé számlaadatok küldése).</li>
+                    <li><strong class="font-bold">Hibakezelés és Visszaállítási Eljárások:</strong> A rendszer hogyan reagál a hibákra (pl. "Érthető hibaüzenetet jelenít meg a felhasználó felé").</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Funkcionális Követelmény Részlet</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">F-205: Szerviz Időpont foglalása:</span> A Flottamenedzsernek (Szerepkör) képesnek kell lennie arra, hogy kiválassza az adott járműhöz (Bemenet: `vehicle_id`) a legközelebbi szervizpartnert és egy szabad időpontot a naptárban.</li>
+                        <li><span class="font-bold">Bemenet:</span> `vehicle_id`, `service_type` (kötelező/egyedi), `preferred_date`.</li>
+                        <li><span class="font-bold">Kimenet:</span> Sikeresen rögzített időpont, megerősítő e-mail (Rendszerinterakció: e-mail küldés modul), szervizpartner visszaigazolásának státusza (Adatfeldolgozás: Aszinkron státuszfrissítés).</li>
+                        <li><span class="font-bold">Hibakezelés:</span> Ha a kiválasztott időpont időközben foglaltá vált, a rendszer hibaüzenetet jelenít meg: "A választott időpont foglalása sikertelen. Kérem, válasszon másik időpontot."</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 3. Folyamat/Használati Eset Leírása -->
+            <div id="use_case" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">3. Folyamat/Használati Eset Leírása (UML/BPMN)</h3>
+                <p class="text-gray-600">Az egyes funkciók logikai sorrendjének, céljainak, előfeltételeinek és következményeinek (kimenetek) részletes, narratív leírása.</p>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Folyamatnév és Cél:</strong> Az ügyviteli folyamat rövid neve és üzleti célja (pl. "Cégbejegyzés megvalósítása").</li>
+                    <li><strong class="font-bold">Előfeltételek (Pre-conditions):</strong> Milyen feltételeknek kell teljesülniük a folyamat megkezdése előtt (pl. "A felhasználó rendelkezik érvényes jogosultsággal").</li>
+                    <li><strong class="font-bold">Kimenetek (Post-conditions):</strong> Milyen változások következnek be a folyamat sikeres lefutása után (pl. "Létrehozva egy 'Szerviz I-57' azonosítóval ellátott szervizbejegyzés").</li>
+                    <li><strong class="font-bold">Kockázatok és Kontrollpontok:</strong> Az esetlegesen felmerülő kockázatok azonosítása és a folyamat során alkalmazott ellenőrzési pontok.</li>
+                    <li><strong class="font-bold">Függőségek:</strong> Az adott folyamat és más folyamatok közötti logikai függőségek (pl. adatátvétel a <strong>CODA (Unit4)</strong> rendszertől).</li>
+                    <li><strong class="font-bold">Ábrázolás:</strong> Kötelezően szükséges UML Activity diagram vagy BPMN ábrázolás a folyamat lépéseiről.</li>
+                </ul>
+                
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Kárbejelentési Folyamat</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Folyamatnév:</span> Teljes Kárbejelentési Folyamat (TKBFP).</li>
+                        <li><span class="font-bold">Folyamatcél:</span> A gépjármű káreseményének rögzítése és a szükséges biztosítói dokumentációk automatikus előkészítése.</li>
+                        <li><span class="font-bold">Előfeltétel:</span> A bejelentő azonosítva van a rendszerben, a jármű <strong class="font-bold">Aktív Szerződés</strong> státuszban van, és rendelkezik érvényes Casco biztosítással.</li>
+                        <li><span class="font-bold">Kimenet:</span> Létrehozva egy `CAR_INCIDENT_CASE` rekord, státusza: `Waiting_for_Appraisal`.</li>
+                        <li><span class="font-bold">Kockázat:</span> A felhasználó nem tölti fel a kötelező rendőrségi jegyzőkönyvet. <strong>Kontroll: Folyamatlépés csak akkor mehet tovább, ha a fájlfeltöltés megtörtént.</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. Folyamatlépések Részletezése -->
+            <div id="process_steps" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">4. Folyamatlépések Részletes Információi</h3>
+                <p class="text-gray-600">Az egyes folyamatokat alkotó lépések (UML diagramok elemei) tételes leírása, különös tekintettel a bemeneti/kimeneti adatokra és a hibakezelésre.</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Lépés Neve vagy Azonosítója:</strong> Egyértelmű azonosítás.</li>
+                    <li><strong class="font-bold">Lépés Leírása:</strong> Részletes leírás az elvégzendő tevékenységről, döntésekről.</li>
+                    <li><strong class="font-bold">Résztvevők (Szereplők):</strong> Rendszerbeli (pl. `Authentication Module`) és külső résztvevők (pl. `Flottamenedzser`).</li>
+                    <li><strong class="font-bold">Bemeneti / Kimeneti Adatok:</strong> A lépés elkezdéséhez szükséges és a lépés eredményeként létrejövő adatok.</li>
+                    <li><strong class="font-bold">Minőségellenőrzés:</strong> A lépés megfelelő minőségét biztosító ellenőrzések (pl. "Értéktartomány-ellenőrzés: a kár dátuma nem lehet későbbi, mint a bejelentés dátuma").</li>
+                    <li><strong class="font-bold">Hibakezelés:</strong> Hogyan kezeli a rendszer az esetleges hibákat vagy kivételes helyzeteket (pl. "Ha a kitöltés helytelen, jelzi a hibaüzenetet, és visszaléptet a kitöltési mezőre").</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Kárbejelentés Első Lépése</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Lépés Azonosító:</span> TKBFP-1.1</li>
+                        <li><span class="font-bold">Lépés Leírása:</span> Felhasználó azonosítja a járművet rendszám vagy alvázszám alapján.</li>
+                        <li><span class="font-bold">Résztvevő:</span> Flottamenedzser, Rendszer (Jármű Kereső Modul).</li>
+                        <li><span class="font-bold">Bemenet:</span> Rendszám (`license_plate`).</li>
+                        <li><span class="font-bold">Kimenet:</span> `vehicle_id`, `insurance_status` (lekérdezve a jármű törzsből).</li>
+                        <li><span class="font-bold">Minőségellenőrzés:</span> A rendszám formátuma (CHAR(7)) megfelelő-e. <strong>Kötelezően ki van-e töltve.</strong></li>
+                        <li><span class="font-bold">Hibakezelés:</span> Ha a rendszám nem található, hibaüzenet: "A megadott rendszám nem tartozik érvényes szerződéshez."</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5. Kulcsképernyők (Wireframes) -->
+            <div id="wireframes" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">5. Kulcsképernyők (Wireframes)</h3>
+                <p class="text-gray-600">A funkciók és folyamatok vizuális megjelenítése a Megrendelő számára. Itt kerülnek bemutatásra a legfontosabb képernyők vázlatai (wireframe-ek), ami segíti a logikai kapcsolatok és a felhasználói útvonal ellenőrzését. <strong class="font-bold">Cél: Korai visszajelzés gyűjtése a felhasználói felület tervezéséről.</strong></p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Képernyő Azonosító és Cím:</strong> Egyedi azonosító (pl. UI-101) és a képernyő célja (pl. "Kárbejelentő Űrlap").</li>
+                    <li><strong class="font-bold">Wireframe Ábra:</strong> A képernyővázlat linkje (pl. Figma, Miro, Balsamiq, vagy beágyazott kép). </li>
+                    <li><strong class="font-bold">Kapcsolat a Folyamattal:</strong> Jelölés, hogy a képernyő a `TKBFP-1.1` és `TKBFP-1.2` folyamatlépésekhez tartozik.</li>
+                    <li><strong class="font-bold">Kulcselemek és Logika:</strong> A képernyőn megjelenő főbb elemek (gombok, mezők, táblázatok) és az azokhoz kapcsolódó logikai követelmények listája.
+                        <ul class="list-[circle] list-inside ml-4 mt-1 space-y-1">
+                            <li><strong class="font-bold">Bemeneti Mezők:</strong> Melyek kötelezőek, és milyen ellenőrzések vonatkoznak rájuk (megerősítve a 4. pontban leírtakat).</li>
+                            <li><strong class="font-bold">Gombok Funkciói:</strong> Pl. `[Mentés]` gomb (adatok validálása és adatbázisba mentése), `[Vissza]` gomb (előző lépésre navigálás).</li>
+                            <li><strong class="font-bold">Navigációs Elemek:</strong> Menüpontok, navigációs útvonal (breadcrumbs).</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Képernyő Tervezési Részlet</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Képernyő:</span> UI-201 - Szerviz Időpont Foglalás Naptár.</li>
+                        <li><span class="font-bold">Wireframe Elérhetőség:</span> A vázlat beágyazva alább.</li>
+                        <li><span class="font-bold">Kulcselem:</span> Naptár komponens (megjelenítve a szabad és foglalt időpontokat).</li>
+                        <li><span class="font-bold">Logikai Követelmény:</span> A Naptár csak a következő 60 nap dátumait mutathatja. A foglalt időpontokat halványan, piros színnel kell jelölni. Kattintáskor felugró ablak kéri a szerviz típusának megerősítését.</li>
+                    </ul>
+                    
+                    <!-- Mobilra optimalizált Wireframe példa -->
+                    <div class="wireframe-container mt-6">
+                        <div class="wireframe-header">
+                            UI-101: Kárbejelentő Űrlap
+                        </div>
+                        <div class="text-xs text-gray-500 mb-2">Folyamatlépés: TKBFP-1.1 (Azonosítás)</div>
+                        
+                        <div class="text-sm font-semibold mb-1">Rendszám*</div>
+                        <div class="wireframe-element wireframe-input text-left text-gray-700">ABC-123</div>
+                        
+                        <div class="text-sm font-semibold mb-1 mt-4">Kár Dátuma*</div>
+                        <div class="wireframe-element wireframe-input text-left text-gray-700">YYYY.MM.DD (Dátumválasztó)</div>
+                        
+                        <div class="text-sm font-semibold mb-1 mt-4">Kár típusa (Lista)*</div>
+                        <div class="wireframe-element wireframe-input text-left text-gray-700">Összetett kár (Select Box)</div>
+
+                        <div class="text-xs text-red-500 mt-2 mb-4 text-center"><strong>Hiba: A kár dátuma nem lehet jövőbeni.</strong></div>
+                        
+                        <div class="wireframe-element wireframe-button mt-4">TOVÁBB (Ellenőrzés)</div>
+                        <div class="text-xs text-gray-500 mt-2 text-center">Adatok: license_plate, incident_date, incident_type</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 6. Adattérkép (Folyamat Adatok) -->
+            <div id="data_map" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">6. Adattérkép (Folyamatlépéshez Tartozó Adatok)</h3>
+                <p class="text-gray-600">Táblázatos összefoglalás arról, hogy az egyes folyamatlépésekben milyen adatok érintettek, milyen a használatuk, formátumuk, és milyen ellenőrzések vonatkoznak rájuk. (Javasolt: egy folyamat egy táblázatban).</p>
+                
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Folyamatnév és Lépés Azonosító:</strong> A folyamat és a lépés egyedi beazonosítása.</li>
+                    <li><strong class="font-bold">Adat Neve és Azonosítója:</strong> Az adat természetes leírása (pl. "A cég elnevezése") és egyedi azonosítója (pl. `company.official_name`).</li>
+                    <li><strong class="font-bold">Használat Módja és Jellege:</strong> Felhasználói felületen rögzített adat, háttérellenőrzés használt adatbázis érték, vagy API-n keresztül érkező adat.</li>
+                    <li><strong class="font-bold">Formátum:</strong> Megjelenítés típusa, hossza (pl. `char(25)`, `yyyy.mm.dd`, `integer`).</li>
+                    <li><strong class="font-bold">Ellenőrzés:</strong> Az adatintegritást biztosító ellenőrzések (pl. ki van-e töltve, névegyediség ellenőrzés).</li>
+                    <li><strong class="font-bold">Automatizálhatóság (Igen/Nem):</strong> Ha igen, az automatizálás leírása (pl. "Alapértelmezett érték megjelenítése Adatforrás X-ből").</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Adattérkép Részlet (Folyamatlépés: Szerviz Dátum Rögzítése)</p>
+                    <table class="w-full text-xs mt-3 border border-yellow-700/50">
+                        <thead>
+                            <tr class="bg-yellow-100 text-yellow-800">
+                                <th class="p-2 text-left">Adat Név (Azonosító)</th>
+                                <th class="p-2 text-left">Használat Jellege</th>
+                                <th class="p-2 text-left">Formátum</th>
+                                <th class="p-2 text-left">Ellenőrzés</th>
+                                <th class="p-2 text-left">Automatizálhatóság</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-yellow-700/20">
+                                <td class="p-2 font-semibold">Szerviz Dátum (service.date)</td>
+                                <td class="p-2">Felhasználó által rögzítendő.</td>
+                                <td class="p-2">DATE (YYYY.MM.DD)</td>
+                                <td class="p-2">Kötelező. Jövőbeni dátum.</td>
+                                <td class="p-2">Nem.</td>
+                            </tr>
+                            <tr class="border-b border-yellow-700/20 bg-yellow-50">
+                                <td class="p-2 font-semibold">Ajánlott Szerviz (service.recommended_partner)</td>
+                                <td class="p-2">UI-n megjelenített (listából).</td>
+                                <td class="p-2">VARCHAR(100)</td>
+                                <td class="p-2">Értéktartomány ellenőrzés (Partner Törzs).</td>
+                                <td class="p-2">Igen (Legközelebbi partner kiválasztása GPS alapján).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-semibold">Törzsadat Frissítés (contract.id)</td>
+                                <td class="p-2">Háttérellenőrzés (adatbázis érték).</td>
+                                <td class="p-2">UUID</td>
+                                <td class="p-2">Létezés ellenőrzés.</td>
+                                <td class="p-2">Igen (automatikus lekérdezés a bejelentkezett felhasználóhoz).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 7. Egyéb Működési Követelmények -->
+            <div id="other_req" data-section-content class="section-content hidden space-y-4">
+                <h3 class="text-2xl font-semibold section-header primary-border">7. Egyéb Működési Követelmények</h3>
+                <p class="text-gray-600">A BRS 7. pontjában szereplő nem-funkcionális követelmények logikai és funkcionális megvalósítási követelményei.</p>
+
+                <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                    <li><strong class="font-bold">Felhasználói Felület és Használhatóság (Logikai Tervek):</strong> A reszponzivitás, az egységes arculat, a hibaüzenetek logikája (nem technikai, hanem felhasználói szemszögből).</li>
+                    <li><strong class="font-bold">Adatbiztonsági Funkciók:</strong> A jogosultság-ellenőrzési pontok elhelyezése a funkciók elérése előtt. Adatok maszkolása (pl. jelszavak, bankkártyaszámok) a naplókban és a felhasználói felületen.</li>
+                    <li><strong class="font-bold">Logolás és Naplózás Funkciók:</strong> Milyen eseményeket és milyen részletességgel kell naplózni (pl. minden sikeres és sikertelen bejelentkezés, minden adatmódosítás).</li>
+                    <li><strong class="font-bold">Kompatibilitási Elvárások:</strong> A rendszernek biztosítania kell, hogy a pénzügyi tranzakciókhoz kapcsolódó adatok formátuma (pl. XML) kompatibilis legyen a célrendszerrel (<strong>CODA (Unit4)</strong>).</li>
+                </ul>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg text-sm shadow-inner mt-4">
+                    <p class="font-bold text-yellow-800 mb-2">PÉLDA: Jogosultság/Biztonság (Logikai Követelmény)</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-gray-700">
+                        <li><span class="font-bold">Jogosultság:</span> A "Flottamenedzser" szerepkör a `Car_Incident_Case` objektumon csak <strong class="font-bold">CREATE</strong> és <strong class="font-bold">READ</strong> jogosultsággal rendelkezik. A <strong class="font-bold">DELETE</strong> művelet végrehajtása nem lehetséges.</li>
+                        <li><span class="font-bold">Naplózás:</strong> A rendszernek minden sikeres `Car_Incident_Case` létrehozáskor rögzítenie kell a felhasználó azonosítóját, az időbélyeget és a tranzakció fő azonosítóját (Incident ID) az <strong class="font-bold">Audit Log</strong>-ban.</li>
+                        <li><span class="font-bold">Adatintegritás:</strong> A `vehicle_id` mező kitöltése (megjelenítése) a teljes kárbejelentési folyamat során kötelező (READONLY).</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('[data-section-content]');
+            const contentPane = document.getElementById('content-pane');
+
+            // Kezdeti állapot: Bevezetés aktív
+            const initialSectionId = 'fs_intro';
+
+            /**
+             * Kezeli a menüpontok kattintási eseményét és a tartalom megjelenítését.
+             * @param {Event} event - A kattintási esemény.
+             */
+            function handleNavClick(event) {
+                event.preventDefault();
+                const targetId = event.currentTarget.getAttribute('data-section');
+
+                // Frissíti a menü kinézetét
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                event.currentTarget.classList.add('active', 'primary-color');
+                event.currentTarget.classList.remove('text-gray-700');
+
+
+                // Frissíti a tartalom megjelenését
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                // Görgeti a tartalompanelt a tetejére 
+                contentPane.scrollTop = 0;
+            }
+
+            // Eseménykezelők hozzáadása a menüpontokhoz
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavClick);
+            });
+
+            // Kezdeti beállítás: az első fejezet megjelenítése
+            sections.forEach(section => {
+                if (section.id === initialSectionId) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Kezdeti állapot aktív linkjének beállítása
+            const initialLink = document.querySelector(`.nav-link[data-section="${initialSectionId}"]`);
+            if (initialLink) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active', 'primary-color', 'text-gray-700');
+                    link.classList.add('text-gray-700');
+                });
+                initialLink.classList.add('active', 'primary-color');
+                initialLink.classList.remove('text-gray-700');
+            }
+        });
+    </script>
+</body>
+</html>
